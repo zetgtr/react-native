@@ -1,5 +1,6 @@
 import { Image, View } from "react-native";
 import style from "./menu.scss";
+
 const Menu = () => (
   <View style={style.container}>
     <View style={style.box}>
