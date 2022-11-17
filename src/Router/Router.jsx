@@ -1,8 +1,19 @@
 import { Button, StyleSheet, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllPostersAction } from "../Store/poster/actions";
+import { posterSelector } from "../Store/poster/selector";
 
 const Router = () => {
+  const dicpatch = useDispatch();
+  const posters = useSelector(posterSelector);
+  
   const onPressLearnMore = () => {
-    console.log(23);
+
+     dicpatch(getAllPostersAction())
+     console.log('====================================');
+     console.log(posters);
+     console.log('====================================');
   };
   return (
     <View style={style.container}>

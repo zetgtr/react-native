@@ -21,10 +21,6 @@ import { persistStore } from "redux-persist";
 
 const rootReducer = combineReducers({
   poster: posterReducer,
-  // chats: chatsReducer,
-  // messages: messagesReducer,
-  // fon: fonReducer,
-  // auth: authReducer,
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
