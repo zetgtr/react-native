@@ -1,0 +1,30 @@
+.scrollContainer{
+    flex: 1;
+    height: 100;
+    width: 100%;
+}
+
+.container{
+    flex: 1;
+    width: 100%;
+    align-items: center;
+}
+
+.img{
+    width: 100px;
+    height: 200px;
+}
+
+.posterBox{
+    width: 90%;
+    border: 1px solid;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.infoBox{
+    // flex-direction: row;
+    width: 70%;
+    flex-grow: 1;
+}

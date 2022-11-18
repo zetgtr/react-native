@@ -1,36 +1,28 @@
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { NativeRouter, Route, Switch, Routes } from "react-router-native";
 import { useDispatch, useSelector } from "react-redux";
-
-import { getAllPostersAction } from "../Store/poster/actions";
+import { getPosters } from "../API/api";
+import Header from "../Components/header/header";
+import Menu from "../Components/menu/menu";
 import { posterSelector } from "../Store/poster/selector";
+import { ROUTER } from "./constants";
+import Poster from "../Components/poster/poster";
 
-const Router = () => {
-  const dicpatch = useDispatch();
-  const posters = useSelector(posterSelector);
-  
-  const onPressLearnMore = () => {
-
-     dicpatch(getAllPostersAction())
-     console.log('====================================');
-     console.log(posters);
-     console.log('====================================');
-  };
-  return (
+const Router = () => (
+  <NativeRouter>
     <View style={style.container}>
-      <Button
-        onPress={onPressLearnMore}
-        title="Получить данные"
-        color="#841584"
-      />
+      <Header />
+      <Routes>
+        <Route exact path={ROUTER.HOME} element={<Poster />} />
+      </Routes>
+      <Menu />
     </View>
-  );
-};
+  </NativeRouter>
+);
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     height: 100,
   },
 });
