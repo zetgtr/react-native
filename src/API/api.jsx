@@ -7,26 +7,24 @@ export const getPosters = (dispatch) => {
   axios
     .get("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster")
     .then((res) => {
-      res.data.map((element) => {
-        posters = [
-          ...posters,
-          {
-            title: element.title,
-            description: element.description,
-            tickets: element.tickets,
-            place: element.place,
-            startsAt: date(element.startsAt),
-            timeStartAt: dateTime(element.startsAt),
-            active: element.active,
-            timeEndsAt: dateTime(element.endsAt),
-            forCitizens: element.forCitizens,
-            limitation: element.limitation,
-            regEndsAt: date(element.regEndsAt),
-            regStartsAt: date(element.regStartsAt),
-            availableTickets: element.availableTickets,
-            photo: "https://mo-strelna.ru/" + element.photo,
-          },
-        ];
+      res.data.map((element, index) => {
+        posters[index] = {
+          title: element.title,
+          description: element.description,
+          tickets: element.tickets,
+          place: element.place,
+          startsAt: date(element.startsAt),
+          timeStartAt: dateTime(element.startsAt),
+          active: element.active,
+          timeEndsAt: dateTime(element.endsAt),
+          forCitizens: element.forCitizens,
+          limitation: element.limitation,
+          regEndsAt: date(element.regEndsAt),
+          regStartsAt: date(element.regStartsAt),
+          availableTickets: element.availableTickets,
+          photo: "https://mo-strelna.ru/" + element.photo,
+          classImg: "img" + index,
+        };
       });
       dispatch(setAllPostersAction(posters));
     })

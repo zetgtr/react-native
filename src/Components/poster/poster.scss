@@ -11,20 +11,53 @@
 }
 
 .img{
-    width: 100px;
-    height: 200px;
+    width: auto;
+    height: 100%;
+    border-radius: 10px; 
+}
+
+.containerImg{
+    width: 155px;
+    height: 205px;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
 }
 
 .posterBox{
-    width: 90%;
-    border: 1px solid;
     flex-direction: row;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .infoBox{
-    // flex-direction: row;
-    width: 70%;
+    width: 60%;
     flex-grow: 1;
+}
+
+.info{
+    flex-direction: row;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.icon{
+    color: #3c52a6;
+}
+
+.infoText{
+    margin-left: 10px;
+    color: #aeaeaf;
+}
+
+.title{
+   margin-bottom: 5px;
+
+}
+
+.posterContainer{
+    flex: 1;
+    width: 95%;
+    background: #f7f8fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

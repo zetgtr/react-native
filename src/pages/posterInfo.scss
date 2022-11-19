@@ -1,0 +1,45 @@
+.container{
+    flex: 1;
+    height: 100;
+    width: 90%;  
+}
+
+// .img{
+//     // flex: 1;
+//     width: 100%;
+//     // position: absolute;
+//     height: 490
+// }
+
+.boxPoster{
+    flex: 1;
+    height: 100%;
+}
+
+.textInfoHeader{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.infoBox{
+
+}
+
+.info{
+    flex-direction: row;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.infoText{
+    margin-left: 10px;
+    color: #aeaeaf;
+}
+
+.icon{
+    color: #3c52a6;
+}
+
+.textDescription{
+    margin-top: 15px;
+}
