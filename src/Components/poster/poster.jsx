@@ -1,6 +1,6 @@
-import { createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faCalendarCheck,
@@ -10,17 +10,28 @@ import {
   faTicketAlt,
 } from "@fortawesome/fontawesome-free-solid";
 
-import { getPosters } from "../../API/api";
 import { posterSelector } from "../../Store/poster/selector";
 import style from "./poster.scss";
 import { Link } from "react-router-native";
 import { ROUTER } from "../../Router/constants";
 
-const Poster = ({ setTitle, setPoster }) => {
+const Poster = ({ setTitle, setPoster, back }) => {
+  //  return false;
   const posters = useSelector(posterSelector);
   const [render, setRender] = useState(false);
-  const ref = createRef();
-  setTitle("Афиша мероприятий");
+  if (!back) {
+    style.container = {
+      ...style.container,
+      opacity: 1,
+    };
+    setTitle("Афиша мероприятий");
+  } else {
+    style.container = {
+      ...style.container,
+      opacity: 0,
+    };
+  }
+
   const onLayoutImg = (widthImg, poster) => {
     Image.getSize(poster.photo, (width, height) => {
       style[poster.classImg] = {
@@ -33,17 +44,16 @@ const Poster = ({ setTitle, setPoster }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setRender(!render);
-    }, 1500);
+      setRender(true);
+    }, 2000);
   }, [style]);
-
+  if (posters.loading) return <></>;
   return (
     <ScrollView style={style.scrollContainer}>
       <View style={style.container}>
         {posters.posters.map((poster) => (
           <Link
             key={poster.classImg}
-            ref={ref}
             onPress={() => setPoster(poster)}
             style={style.posterContainer}
             underlayColor

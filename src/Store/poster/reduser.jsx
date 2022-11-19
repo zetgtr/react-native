@@ -2,6 +2,7 @@ import { GET_ALL_POSTERS_ACTION, SET_ALL_POSTER_ACTION } from "./constants";
 
 const initialState = {
   posters: [],
+  loading: true,
 };
 
 export const posterReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ export const posterReducer = (state = initialState, action) => {
       return {
         ...state,
         posters,
+        loading: false,
       };
     }
     default:

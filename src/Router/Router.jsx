@@ -8,16 +8,15 @@ import { useEffect, useState } from "react";
 import PosterInfo from "../pages/posterInfo";
 import { useDispatch } from "react-redux";
 import { getPosters } from "../API/api";
+import Home from "../Components/poster/home";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
   const [poster, setPoster] = useState();
   const [back, setBack] = useState(false);
+  const [pagePoster, setPagePoster] = useState();
   const dicpatch = useDispatch();
 
-  useEffect(() => {
-    setBack(false);
-  }, [title]);
   useEffect(() => {
     getPosters(dicpatch);
   }, [dicpatch]);
@@ -25,11 +24,19 @@ const Router = () => {
     <NativeRouter>
       <View style={style.container}>
         <Header back={back} title={title} />
+        <Poster
+          setTitle={setTitle}
+          setBack={setBack}
+          setPagePoster={setPagePoster}
+          back={back}
+          pagePoster={pagePoster}
+          setPoster={setPoster}
+        />
         <Routes>
           <Route
             exact
             path={ROUTER.HOME}
-            element={<Poster setTitle={setTitle} setPoster={setPoster} />}
+            element={<Home setBack={setBack}></Home>}
           />
           <Route
             exact
@@ -38,6 +45,8 @@ const Router = () => {
               <PosterInfo
                 setTitle={setTitle}
                 setBack={setBack}
+                setPagePoster={setPagePoster}
+                back={back}
                 poster={poster}
               />
             }

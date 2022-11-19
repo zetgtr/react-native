@@ -1,7 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
-import { posterSelector } from "../Store/poster/selector";
+import { Image, ScrollView, Text, View } from "react-native";
 import style from "./posterInfo.scss";
 
 import {
@@ -11,20 +9,13 @@ import {
   faMapMarkerAlt,
   faTicketAlt,
 } from "@fortawesome/fontawesome-free-solid";
-import { createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const PosterInfo = ({ setTitle, setBack, poster }) => {
-  const posters = useSelector(posterSelector);
-  const ref = createRef();
-
-  setTitle("назад");
-  setBack(true);
-
+const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
   const [render, setRender] = useState(false);
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
-      console.log(widthImg + widthImg * ((height - width) / width));
       style.img = {
         width: widthImg,
         height: widthImg + widthImg * ((height - width) / width),
@@ -32,6 +23,12 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
       setRender(!render);
     });
   };
+
+  useEffect(() => {
+    setTitle("назад");
+    setBack(true);
+    setPagePoster(true);
+  }, []);
 
   return (
     <>
