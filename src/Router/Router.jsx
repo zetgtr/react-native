@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import PosterInfo from "../pages/posterInfo";
 import { useDispatch } from "react-redux";
 import { getPosters } from "../API/api";
-import Home from "../Components/poster/home";
+import Home from "../pages/home";
+import { Auth } from "../pages/auth/auth";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
@@ -50,6 +51,11 @@ const Router = () => {
                 poster={poster}
               />
             }
+          />
+          <Route
+            exact
+            path={ROUTER.AUTH}
+            element={<Auth setBack={setBack} />}
           />
         </Routes>
         <Menu />

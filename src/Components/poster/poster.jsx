@@ -59,7 +59,7 @@ const Poster = ({ setTitle, setPoster, back }) => {
             underlayColor
             to={ROUTER.POSTER}
           >
-            <View onT style={style.posterContainer}>
+            <View style={style.posterContainer}>
               <Text style={style.title}>{poster.title}</Text>
               <View style={style.posterBox}>
                 <View style={style.infoBox}>

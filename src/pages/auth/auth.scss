@@ -1,0 +1,37 @@
+
+
+.containerScroll{
+    height: 100%;
+    width: 100%;
+    // border: 1px solid;
+    // align-items: center;
+    // justify-content: center;
+}
+
+.container{
+flex: 1;
+background: #4f68c8;
+    // height: 1000;
+    // width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.box{
+    padding: 15px;
+    border-radius: 10px;
+    background: #ffffff;
+    width: 90%;
+    align-items: center;
+}
+
+.button{
+    flex-direction: row;
+    color: #3c52a6;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 5px;
+    background: transparent;
+    font-size: 0.75rem;
+    // width: ;
+}

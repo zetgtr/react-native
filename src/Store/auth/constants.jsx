@@ -1,0 +1,1 @@
+export const SET_AUTH_ACTION = "AUTH::SET_AUTH_ACTION";
