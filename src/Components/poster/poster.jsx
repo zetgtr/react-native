@@ -24,7 +24,6 @@ const Poster = ({ setTitle, setPoster, back }) => {
       ...style.container,
       opacity: 1,
     };
-    setTitle("Афиша мероприятий");
   } else {
     style.container = {
       ...style.container,

@@ -1,37 +1,41 @@
 import axios from "axios";
+import { ROUTER } from "../Router/constants";
 import { setAuthAction } from "../Store/auth/actions";
 import { setAllPostersAction } from "../Store/poster/actions";
 import { date, dateTime } from "./utils";
 
-export const getPosters = (dispatch) => {
-  let posters = [];
+
+function api(url,fun){
   axios
-    .get("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster")
-    .then((res) => {
-      res.data.map((element, index) => {
-        posters[index] = {
-          title: element.title,
-          description: element.description,
-          tickets: element.tickets,
-          place: element.place,
-          startsAt: date(element.startsAt),
-          timeStartAt: dateTime(element.startsAt),
-          active: element.active,
-          timeEndsAt: dateTime(element.endsAt),
-          forCitizens: element.forCitizens,
-          limitation: element.limitation,
-          regEndsAt: date(element.regEndsAt),
-          regStartsAt: date(element.regStartsAt),
-          availableTickets: element.availableTickets,
-          photo: "https://mo-strelna.ru/" + element.photo,
-          classImg: "img" + index,
-        };
-      });
-      dispatch(setAllPostersAction(posters));
-    })
-    .catch((error) => {
+    .get(url).then((res)=>fun(res)).catch((error) => {
       console.log(error);
     });
+}
+
+export const getPosters = (dispatch) => {
+  let posters = [];
+  api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster",(res)=>{
+    res.data.map((element, index) => {
+      posters[index] = {
+        title: element.title,
+        description: element.description,
+        tickets: element.tickets,
+        place: element.place,
+        startsAt: date(element.startsAt),
+        timeStartAt: dateTime(element.startsAt),
+        active: element.active,
+        timeEndsAt: dateTime(element.endsAt),
+        forCitizens: element.forCitizens,
+        limitation: element.limitation,
+        regEndsAt: date(element.regEndsAt),
+        regStartsAt: date(element.regStartsAt),
+        availableTickets: element.availableTickets,
+        photo: "https://mo-strelna.ru/" + element.photo,
+        classImg: "img" + index,
+      };
+    });
+    dispatch(setAllPostersAction(posters));
+  })
 };
 
 export const signIn = (
@@ -39,42 +43,40 @@ export const signIn = (
   password,
   setError,
   dispatch,
-  setRender,
-  render
+  navigate,
+  setLoading
 ) => {
-  axios
-    .get(
-      `https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`
-    )
-    .then((res) => {
-      dispatch(setAuthAction(res.data.auth));
-      setError(res.data.error);
-      setRender(!render);
-    })
-    .catch((error) => {
-      setError(error);
-    });
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,(res)=>{
+    if(res.data.auth){
+            dispatch(setAuthAction(res.data.auth));
+            navigate(ROUTER.PROFILE)
+          }
+          setLoading(false)
+          setError(res.data.error);
+           })
 };
 
-export const getAuth = (dispatch, setRender, render) => {
-  axios
-    .get(`https://mo-strelna.ru/mobile/mobile.php?type=get_auth`)
-    .then((res) => {
-      if (res.data.auth) dispatch(setAuthAction(res.data.auth));
-      setRender(!render);
+export const getAuth = (dispatch, navigate) => {
+    api(`https://mo-strelna.ru/mobile/mobile.php?type=get_auth`, (res) => {
+      if (res.data.auth) {
+        dispatch(setAuthAction(res.data.auth))
+        // navigate(ROUTER.PROFILE)};
+      }
     })
-    .catch((error) => {
-      console.log(error);
-    });
 };
 
-export const exitAuth = (dispatch) => {
-  axios
-    .get(`https://mo-strelna.ru/mobile/mobile.php?type=exit_auth`)
-    .then((res) => {
-      if (!res.data.auth) dispatch(setAuthAction(res.data.auth));
+export const exitAuth = (dispatch,navigate) => {
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=exit_auth`,(res) => {
+      if (!res.data.auth) {
+        dispatch(setAuthAction(res.data.auth))
+        navigate(ROUTER.AUTH)};
     })
-    .catch((error) => {
-      console.log(error);
-    });
 };
+
+export const getProfile = (dispatch) => {
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`,(res)=>{
+    console.log('====================================');
+    console.log(res.data);
+    console.log('====================================');
+  })
+}

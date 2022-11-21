@@ -1,10 +1,14 @@
 import { Image, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-native";
 import { ROUTER } from "../../Router/constants";
+import { authSelector } from "../../Store/auth/selector";
 import style from "./menu.scss";
 
-const Menu = () => (
+const Menu = () => {
+    const {auth} = useSelector(authSelector)
+  return(
   <View style={style.container}>
     <Link underlayColor to={ROUTER.HOME}>
       <Svg
@@ -36,7 +40,7 @@ const Menu = () => (
         strokeLinejoin="round"
       />
     </Svg>
-    <Link underlayColor to={ROUTER.AUTH}>
+    <Link underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}>
       <Svg
         style={style.svg}
         viewBox="0 -250 400 1000"
@@ -53,6 +57,6 @@ const Menu = () => (
       </Svg>
     </Link>
   </View>
-);
+)};
 
 export default Menu;

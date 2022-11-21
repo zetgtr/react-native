@@ -1,5 +1,6 @@
 import { faSignInAlt } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigate} from 'react-router-native'
 import { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -12,20 +13,23 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getAuth, signIn } from "../../API/api";
-import { ProFile } from "../../Components/profile/profile";
-import { getAuthAction } from "../../Store/auth/actions";
 import { authSelector } from "../../Store/auth/selector";
 import style from "./auth.scss";
+import { ActivityIndicator } from "@react-native-material/core";
+
 
 export const Auth = ({ setBack }) => {
   const [login, onChangeLogin] = useState(null);
   const [password, onChangePassword] = useState(null);
   const [render, setRender] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const auth = useSelector(authSelector);
+  const {auth} = useSelector(authSelector);
   const onPressAuth = () => {
-    signIn(login, password, setError, dispatch, setRender, render);
+    setLoading(true)
+    signIn(login, password, setError, dispatch, navigate, setLoading);
   };
   const onLayoutGetHigth = (height) => {
     style.container = {
@@ -34,16 +38,15 @@ export const Auth = ({ setBack }) => {
     };
     setRender(!render);
   };
-  console.log(error);
   useEffect(() => {
     setBack(true);
-    getAuth(dispatch, setRender, render);
+    getAuth(dispatch, navigate);
     setRender(!render);
   }, []);
   return (
     <>
       {auth.auth ? (
-        <ProFile />
+        <></>
       ) : (
         <ScrollView
           onLayout={(e) => onLayoutGetHigth(e.nativeEvent.layout.height)}
@@ -51,13 +54,17 @@ export const Auth = ({ setBack }) => {
         >
           <View style={style.container}>
             <View style={style.box}>
+              {loading ? <ActivityIndicator size="large" color="#4f68c8" /> :
+              <>
               <TextInput
+              autoComplete={"name"}
                 style={styles.input}
                 onChangeText={onChangeLogin}
                 value={login}
                 placeholder="Логин или Email"
               />
               <TextInput
+              autoComplete={"password"}
                 style={styles.input}
                 onChangeText={onChangePassword}
                 value={password}
@@ -72,10 +79,11 @@ export const Auth = ({ setBack }) => {
                 <FontAwesomeIcon icon={faSignInAlt} />
                 <Text>Войти</Text>
               </TouchableOpacity>
+              </>}
             </View>
           </View>
         </ScrollView>
-      )}
+      )} 
     </>
   );
 };

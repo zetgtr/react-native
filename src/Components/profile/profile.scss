@@ -1,4 +1,13 @@
-.buttonExit{
-    width: 100px;
-    height: 300px;
+// .buttonHeader{
+//     // width: 100px;
+// }
+
+.container{
+    height: 100%;
+}
+
+.header{
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-around;
 }

@@ -1,21 +1,22 @@
 import { StyleSheet, View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import Header from "../Components/header/header";
-import Menu from "../Components/menu/menu";
+import MenuApp from "../Components/menu/menu";
 import { ROUTER } from "./constants";
 import Poster from "../Components/poster/poster";
 import { useEffect, useState } from "react";
-import PosterInfo from "../pages/posterInfo";
+import PosterInfo from "../Components/posterInfo/posterInfo";
 import { useDispatch } from "react-redux";
 import { getPosters } from "../API/api";
-import Home from "../pages/home";
-import { Auth } from "../pages/auth/auth";
+import Home from "../Components/home/home";
+import { Auth } from "../Components/auth/auth";
+import { ProFile } from "../Components/profile/profile";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
   const [poster, setPoster] = useState();
   const [back, setBack] = useState(false);
-  const [pagePoster, setPagePoster] = useState();
+  const [pagePoster, setPagePoster] = useState(false);
   const dicpatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +29,6 @@ const Router = () => {
         <Poster
           setTitle={setTitle}
           setBack={setBack}
-          setPagePoster={setPagePoster}
           back={back}
           pagePoster={pagePoster}
           setPoster={setPoster}
@@ -37,7 +37,7 @@ const Router = () => {
           <Route
             exact
             path={ROUTER.HOME}
-            element={<Home setBack={setBack}></Home>}
+            element={<Home setBack={setBack} setTitle={setTitle} setPagePoster={setPagePoster}></Home>}
           />
           <Route
             exact
@@ -53,12 +53,16 @@ const Router = () => {
             }
           />
           <Route
+            path={ROUTER.PROFILE}
+            element={<ProFile setBack={setBack} setTitle={setTitle} />}
+          />
+          <Route
             exact
             path={ROUTER.AUTH}
             element={<Auth setBack={setBack} />}
           />
         </Routes>
-        <Menu />
+        <MenuApp />
       </View>
     </NativeRouter>
   );

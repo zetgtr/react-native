@@ -27,7 +27,7 @@ const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
   useEffect(() => {
     setTitle("назад");
     setBack(true);
-    setPagePoster(true);
+    // setPagePoster(true);
   }, []);
 
   return (

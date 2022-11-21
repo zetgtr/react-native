@@ -1,12 +1,12 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { ROUTER } from "../../Router/constants";
 import style from "./header.scss";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Link, useNavigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 
 const Header = ({ title, back }) => {
   const navigate = useNavigate();
+
   const onChengeBack = () => {
     navigate(-1);
   };
