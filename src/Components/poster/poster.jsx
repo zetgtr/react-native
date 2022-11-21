@@ -19,24 +19,30 @@ const Poster = ({ setTitle, setPoster, back }) => {
   //  return false;
   const posters = useSelector(posterSelector);
   const [render, setRender] = useState(false);
-  if (!back) {
-    style.container = {
-      ...style.container,
-      opacity: 1,
-    };
-  } else {
-    style.container = {
-      ...style.container,
-      opacity: 0,
-    };
-  }
+  // if (!back) {
+  //   style.container = {
+  //     ...style.container,
+  //     opacity: 1,
+  //   };
+  // } else {
+  //   style.container = {
+  //     ...style.container,
+  //     opacity: 0,
+  //   };
+  // }
 
   const onLayoutImg = (widthImg, poster) => {
     Image.getSize(poster.photo, (width, height) => {
+      const tmp = widthImg - 10;
       style[poster.classImg] = {
-        width: widthImg,
-        height: widthImg + widthImg * ((height - width) / width),
-        borderRadius: 10,
+        width: tmp ,
+        height: tmp + tmp * ((height - width) / width),
+        borderRadius: 5,
+        objectFit: 'scale-down',
+        // borderWidth: 5,
+        // borderColor: '#fff',
+        
+
       };
     });
   };
@@ -64,25 +70,26 @@ const Poster = ({ setTitle, setPoster, back }) => {
                 <View style={style.infoBox}>
                   <View style={style.info}>
                     <FontAwesomeIcon
+                      size={11}
                       style={style.icon}
                       icon={faCalendarCheck}
                     />
                     <Text style={style.infoText}>{poster.startsAt}</Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faClock} />
+                    <FontAwesomeIcon style={style.icon} icon={faClock}  size={11} />
                     <Text style={style.infoText}>
                       {poster.timeStartAt} - {poster.timeEndsAt}
                     </Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faTicketAlt} />
+                    <FontAwesomeIcon style={style.icon} icon={faTicketAlt}  size={11} />
                     <Text style={style.infoText}>
                       Всего билетов: {poster.tickets}
                     </Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faTicketAlt} />
+                    <FontAwesomeIcon style={style.icon} icon={faTicketAlt}  size={11} />
                     <Text style={style.infoText}>
                       {poster.availableTickets == 0
                         ? "Билетов не осталось"
@@ -90,21 +97,21 @@ const Poster = ({ setTitle, setPoster, back }) => {
                     </Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faCalendarPlus} />
+                    <FontAwesomeIcon style={style.icon} icon={faCalendarPlus}  size={11} />
                     <Text style={style.infoText}>
                       Начало регистрации: {"\n"}
                       {poster.regStartsAt}
                     </Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faCalendarPlus} />
+                    <FontAwesomeIcon style={style.icon} icon={faCalendarPlus}  size={11} />
                     <Text style={style.infoText}>
                       Конец регистрации: {"\n"}
                       {poster.regEndsAt}
                     </Text>
                   </View>
                   <View style={style.info}>
-                    <FontAwesomeIcon style={style.icon} icon={faMapMarkerAlt} />
+                    <FontAwesomeIcon style={style.icon} icon={faMapMarkerAlt}  size={11} />
                     <Text style={style.infoText}>{poster.place}</Text>
                   </View>
                 </View>
@@ -112,10 +119,12 @@ const Poster = ({ setTitle, setPoster, back }) => {
                   onLayout={(e) =>
                     onLayoutImg(e.nativeEvent.layout.width, poster)
                   }
+                  
                   style={style.containerImg}
-                >
+                  >
                   <Image
                     style={style[poster.classImg]}
+                    // style = {style.img}
                     source={{
                       uri: poster.photo,
                     }}

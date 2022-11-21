@@ -31,7 +31,10 @@
     "react-redux": "^7.2.6",
     "react-router-native": "^6.4.3",
     "redux-persist": "^6.0.0",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "react-native-web": "~0.18.9",
+    "react-dom": "18.1.0",
+    "@expo/webpack-config": "^0.17.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
