@@ -1,7 +1,11 @@
+import { useEffect } from "react";
+
 const Home = ({ setBack, setPagePoster,setTitle }) => {
-  setTitle("Афиша мероприятий");
-  setPagePoster(true)
-  setBack(false);
+  useEffect(()=>{
+    setTitle("Афиша мероприятий");
+    setPagePoster(true)
+    setBack(false);
+  },[])
   return <></>;
 };
 

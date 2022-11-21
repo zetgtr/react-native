@@ -37,7 +37,9 @@ const Router = () => {
           <Route
             exact
             path={ROUTER.HOME}
-            element={<Home setBack={setBack} setTitle={setTitle} setPagePoster={setPagePoster}></Home>}
+            element={<Home 
+              setBack={setBack} setTitle={setTitle} setPagePoster={setPagePoster}
+              ></Home>}
           />
           <Route
             exact
@@ -54,7 +56,7 @@ const Router = () => {
           />
           <Route
             path={ROUTER.PROFILE}
-            element={<ProFile setBack={setBack} setTitle={setTitle} />}
+            element={<ProFile setBack={setBack} setPoster={setPoster} setTitle={setTitle} />}
           />
           <Route
             exact

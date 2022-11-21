@@ -2,6 +2,7 @@ import axios from "axios";
 import { ROUTER } from "../Router/constants";
 import { setAuthAction } from "../Store/auth/actions";
 import { setAllPostersAction } from "../Store/poster/actions";
+import { setAllProfileAction } from "../Store/profile/actions";
 import { date, dateTime } from "./utils";
 
 
@@ -12,29 +13,34 @@ function api(url,fun){
     });
 }
 
-export const getPosters = (dispatch) => {
+function setDataPoster(res){
   let posters = [];
+  res.map((element, index) => {
+    posters[index] = {
+      title: element.title,
+      description: element.description,
+      tickets: element.tickets,
+      place: element.place,
+      startsAt: date(element.startsAt),
+      timeStartAt: dateTime(element.startsAt),
+      active: element.active,
+      timeEndsAt: dateTime(element.endsAt),
+      forCitizens: element.forCitizens,
+      limitation: element.limitation,
+      regEndsAt: date(element.regEndsAt),
+      regStartsAt: date(element.regStartsAt),
+      availableTickets: element.availableTickets,
+      photo: "https://mo-strelna.ru/" + element.photo,
+      classImg: "img" + index,
+    };
+  });
+  return posters
+}
+
+export const getPosters = (dispatch) => {
+  
   api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster",(res)=>{
-    res.data.map((element, index) => {
-      posters[index] = {
-        title: element.title,
-        description: element.description,
-        tickets: element.tickets,
-        place: element.place,
-        startsAt: date(element.startsAt),
-        timeStartAt: dateTime(element.startsAt),
-        active: element.active,
-        timeEndsAt: dateTime(element.endsAt),
-        forCitizens: element.forCitizens,
-        limitation: element.limitation,
-        regEndsAt: date(element.regEndsAt),
-        regStartsAt: date(element.regStartsAt),
-        availableTickets: element.availableTickets,
-        photo: "https://mo-strelna.ru/" + element.photo,
-        classImg: "img" + index,
-      };
-    });
-    dispatch(setAllPostersAction(posters));
+    dispatch(setAllPostersAction(setDataPoster(res.data)));
   })
 };
 
@@ -75,8 +81,6 @@ export const exitAuth = (dispatch,navigate) => {
 
 export const getProfile = (dispatch) => {
   api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`,(res)=>{
-    console.log('====================================');
-    console.log(res.data);
-    console.log('====================================');
+    dispatch(setAllProfileAction(setDataPoster(res.data.invites)));
   })
 }

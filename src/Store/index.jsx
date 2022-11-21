@@ -5,6 +5,7 @@ import { posterReducer } from "./poster/reduser";
 
 import { persistStore } from "redux-persist";
 import { authReducer } from "./auth/reduser";
+import { profileReducer } from "./profile/reduser";
 // import createSagaMiddleware from "redux-saga";
 // import { sagaWatcher } from "./sagas/sagas";
 // import { fonReducer } from "./Settings/reducer";
@@ -23,6 +24,7 @@ import { authReducer } from "./auth/reduser";
 const rootReducer = combineReducers({
   poster: posterReducer,
   auth: authReducer,
+  profile: profileReducer
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
