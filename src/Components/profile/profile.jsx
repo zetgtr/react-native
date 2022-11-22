@@ -8,12 +8,12 @@ import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
 
 export const ProFile = ({ setBack, setPoster, setTitle }) => {
-  const dispatch = useDispatch();
+  const dicpatch = useDispatch();
   const navigate = useNavigate();
   const [invitation, setInvitation] = useState(true);
   const [family, setFamily] = useState(false);
   const onChengeExit = () => {
-    exitAuth(dispatch, navigate);
+    exitAuth(dicpatch, navigate);
   };
 
   const onChangeInvitation = () => {
@@ -27,6 +27,7 @@ export const ProFile = ({ setBack, setPoster, setTitle }) => {
   };
   useEffect(() => {
     setBack(false);
+    getProfile(dicpatch);
     setTitle("Профиль");
   });
   return (

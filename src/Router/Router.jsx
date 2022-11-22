@@ -72,7 +72,7 @@ const Router = () => {
           <Route
             exact
             path={ROUTER.AUTH}
-            element={<Auth setBack={setBack} />}
+            element={<Auth setTitle={setTitle} setBack={setBack} />}
           />
         </Routes>
         <MenuApp />
@@ -84,8 +84,6 @@ const Router = () => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    height: 100,
-    alignItems: "center",
   },
 });
 

@@ -1,6 +1,6 @@
 import { faSignInAlt } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useNavigate} from 'react-router-native'
+import { useNavigate } from "react-router-native";
 import { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -17,18 +17,17 @@ import { authSelector } from "../../Store/auth/selector";
 import style from "./auth.scss";
 import { ActivityIndicator } from "@react-native-material/core";
 
-
-export const Auth = ({ setBack }) => {
+export const Auth = ({ setBack, setTitle }) => {
   const [login, onChangeLogin] = useState(null);
   const [password, onChangePassword] = useState(null);
   const [render, setRender] = useState(false);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {auth} = useSelector(authSelector);
+  const { auth } = useSelector(authSelector);
   const onPressAuth = () => {
-    setLoading(true)
+    setLoading(true);
     signIn(login, password, setError, dispatch, navigate, setLoading);
   };
   const onLayoutGetHigth = (height) => {
@@ -39,7 +38,8 @@ export const Auth = ({ setBack }) => {
     setRender(!render);
   };
   useEffect(() => {
-    setBack(true);
+    setTitle("Авторизация");
+    setBack(false);
     getAuth(dispatch, navigate);
     setRender(!render);
   }, []);
@@ -54,36 +54,39 @@ export const Auth = ({ setBack }) => {
         >
           <View style={style.container}>
             <View style={style.box}>
-              {loading ? <ActivityIndicator size="large" color="#4f68c8" /> :
-              <>
-              <TextInput
-              autoComplete={"name"}
-                style={styles.input}
-                onChangeText={onChangeLogin}
-                value={login}
-                placeholder="Логин или Email"
-              />
-              <TextInput
-              autoComplete={"password"}
-                style={styles.input}
-                onChangeText={onChangePassword}
-                value={password}
-                placeholder="Пароль"
-                secureTextEntry={true}
-              />
-              <Text>{error}</Text>
-              <TouchableOpacity
-                onPress={() => onPressAuth()}
-                style={style.button}
-              >
-                <FontAwesomeIcon icon={faSignInAlt} />
-                <Text>Войти</Text>
-              </TouchableOpacity>
-              </>}
+              {loading ? (
+                <ActivityIndicator size="large" color="#4f68c8" />
+              ) : (
+                <>
+                  <TextInput
+                    autoComplete={"name"}
+                    style={styles.input}
+                    onChangeText={onChangeLogin}
+                    value={login}
+                    placeholder="Логин или Email"
+                  />
+                  <TextInput
+                    autoComplete={"password"}
+                    style={styles.input}
+                    onChangeText={onChangePassword}
+                    value={password}
+                    placeholder="Пароль"
+                    secureTextEntry={true}
+                  />
+                  <Text>{error}</Text>
+                  <TouchableOpacity
+                    onPress={() => onPressAuth()}
+                    style={style.button}
+                  >
+                    <FontAwesomeIcon icon={faSignInAlt} />
+                    <Text>Войти</Text>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
           </View>
         </ScrollView>
-      )} 
+      )}
     </>
   );
 };

@@ -1,0 +1,108 @@
+.container{
+    width: 100%;
+    
+    align-items: center;
+}
+
+.containerFamily{
+    width: 95%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    position: relative;
+    // background: #f7f8fa;
+    // flex-direction: row;
+    border-radius: 10px;
+    border: 1px solid #f3f3f3;
+    padding: 15px;
+}
+
+.icon{
+    color: #3c52a6;
+    margin-right: 7px;
+}
+
+.iconCircle{
+    color: #186f40;
+    margin-right: 5px;
+}
+
+.iconTriangle{
+    margin-right: 5px;
+    color: #f7ca27;
+}
+
+
+.containerIcon{
+    flex-direction: row;
+    align-items: center;
+}
+
+.name{
+   margin-bottom: 5px;
+//    margin-left: 10px;
+   font-weight: 700;
+}
+
+.text{
+    color: #aeaeaf;
+    line-height: 14.4px;
+    font-size: 11px;
+}
+
+.textButtonCircle{
+    color: #186f40;
+    line-height: 14.4px;
+    font-size: 11px;
+}
+
+.textButtonTriangle{
+    color: #f7ca27;
+    line-height: 14.4px;
+    font-size: 11px;
+}
+
+.banner{
+    position: absolute;
+    // top: -50px;
+    top:  -1;
+    width: 100%;
+    // height: 100%;
+    background: #ffffff;
+    z-index: 2;
+    
+}
+
+.scroll{
+    z-index: 0;
+    flex: 1;
+}
+
+.bannerButton{
+    color: #3c52a6;
+}
+
+.bannerFon{
+    height: 100%;
+    bottom: 1px;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    background: rgba(0,0,0,.5)
+}
+
+.bannerContainer{
+    position: absolute;
+    top: -100;
+}
+
+.buttonContainer{
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.textButton{
+    line-height: 14.4px;
+    font-size: 11px;
+}

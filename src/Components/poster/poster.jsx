@@ -21,7 +21,7 @@ const Poster = ({ setPoster }) => {
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
-  const [sizeIcon, setSizeIcon] = useState(11);
+  const [sizeIcon] = useState(11);
 
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
@@ -120,11 +120,11 @@ const Poster = ({ setPoster }) => {
                   </View>
                   <View
                     onLayout={(e) => onLayoutImg(e.nativeEvent.layout.width)}
-                    style={style.containerImg}
+                    style={styleImg[poster.classImg]}
+                    // style={style.containerImg}
                   >
                     <Image
-                      style={styleImg[poster.classImg]}
-                      // style = {style.img}
+                      style={style.img}
                       source={{
                         uri: poster.photo,
                       }}

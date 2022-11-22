@@ -38,6 +38,24 @@ function setDataPoster(res) {
   return posters;
 }
 
+function setFamilys(res) {
+  let familys = [];
+  res.map((element, index) => {
+    familys[index] = {
+      firstname: element.firstname,
+      lastname: element.lastname,
+      patronymic: element.patronymic,
+      citizen: element.citizen,
+      valid: element.valid,
+      novalid: element.novalid,
+      phoneNumber: element.phoneNumber,
+      email: element.email,
+      birthdate: element.birthdate,
+    };
+  });
+  return familys;
+}
+
 export const getPosters = (dispatch) => {
   api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster", (res) => {
     dispatch(setAllPostersAction(setDataPoster(res.data)));
@@ -65,10 +83,11 @@ export const signIn = (
   );
 };
 
-export const getAuth = (dispatch) => {
+export const getAuth = (dispatch, navigate = () => {}) => {
   api(`https://mo-strelna.ru/mobile/mobile.php?type=get_auth`, (res) => {
     if (res.data.auth) {
       dispatch(setAuthAction(res.data.auth));
+      navigate(ROUTER.PROFILE);
     }
   });
 };
@@ -84,6 +103,11 @@ export const exitAuth = (dispatch, navigate) => {
 
 export const getProfile = (dispatch) => {
   api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`, (res) => {
-    dispatch(setAllProfileAction(setDataPoster(res.data.invites)));
+    dispatch(
+      setAllProfileAction({
+        invites: setDataPoster(res.data.invites),
+        familys: setFamilys(res.data.familys),
+      })
+    );
   });
 };

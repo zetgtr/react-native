@@ -14,14 +14,13 @@ import { ROUTER } from "../../Router/constants";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
 import { imgPoster } from "../utils";
-import styleInvitation from "./style.scss";
 
 const Invitation = ({ setPoster }) => {
   const { invites } = useSelector(profileSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
-  const [sizeIcon, setSizeIcon] = useState(11);
+  const [sizeIcon] = useState(11);
 
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
@@ -32,7 +31,7 @@ const Invitation = ({ setPoster }) => {
   }, [invites, widthImg]);
   if (loading) return <></>;
   return (
-    <ScrollView style={styleInvitation.scrollContainer}>
+    <ScrollView>
       <View style={style.container}>
         {invites.map((poster) => (
           <Link
@@ -121,10 +120,10 @@ const Invitation = ({ setPoster }) => {
                   onLayout={(e) =>
                     onLayoutImg(e.nativeEvent.layout.width, poster)
                   }
-                  style={style.containerImg}
+                  style={styleImg[poster.classImg]}
                 >
                   <Image
-                    style={styleImg[poster.classImg]}
+                    style={style.img}
                     source={{
                       uri: poster.photo,
                     }}
