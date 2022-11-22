@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import style from "./posterInfo.scss";
 
 import {
@@ -10,9 +10,11 @@ import {
   faTicketAlt,
 } from "@fortawesome/fontawesome-free-solid";
 import { useEffect, useState } from "react";
+import { Button } from "@react-native-material/core";
 
-const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
+const PosterInfo = ({ setTitle, setBack, poster }) => {
   const [render, setRender] = useState(false);
+  const [sizeIcon] = useState(11);
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
@@ -27,7 +29,6 @@ const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
   useEffect(() => {
     setTitle("назад");
     setBack(true);
-    // setPagePoster(true);
   }, []);
 
   return (
@@ -50,23 +51,39 @@ const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
             <Text style={style.textInfoHeader}>Информация</Text>
             <View style={style.infoBox}>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faCalendarCheck} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faCalendarCheck}
+                />
                 <Text style={style.infoText}>{poster.startsAt}</Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faClock} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faClock}
+                />
                 <Text style={style.infoText}>
                   {poster.timeStartAt} - {poster.timeEndsAt}
                 </Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faTicketAlt} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faTicketAlt}
+                />
                 <Text style={style.infoText}>
                   Всего билетов: {poster.tickets}
                 </Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faTicketAlt} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faTicketAlt}
+                />
                 <Text style={style.infoText}>
                   {poster.availableTickets == 0
                     ? "Билетов не осталось"
@@ -74,21 +91,33 @@ const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
                 </Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faCalendarPlus} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faCalendarPlus}
+                />
                 <Text style={style.infoText}>
                   Начало регистрации:
                   {poster.regStartsAt}
                 </Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faCalendarPlus} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faCalendarPlus}
+                />
                 <Text style={style.infoText}>
                   Конец регистрации:
                   {poster.regEndsAt}
                 </Text>
               </View>
               <View style={style.info}>
-                <FontAwesomeIcon style={style.icon} icon={faMapMarkerAlt} />
+                <FontAwesomeIcon
+                  size={sizeIcon}
+                  style={style.icon}
+                  icon={faMapMarkerAlt}
+                />
                 <Text style={style.infoText}>{poster.place}</Text>
               </View>
               <Text style={style.textDescription}>{poster.description}</Text>
@@ -96,6 +125,14 @@ const PosterInfo = ({ setTitle, setPagePoster, setBack, poster }) => {
           </View>
         </View>
       </ScrollView>
+      <TouchableOpacity style={style.invitationButton}>
+        <Text style={style.textInvitation}>Получить приглашение!</Text>
+      </TouchableOpacity>
+      {/* <Button
+      // color="#f7ca27"
+      // style={{ height: 50, justifyContent: "center" }}
+      // title={<Text style={style.textInvitation}>Получить приглашение!</Text>}
+      /> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faCalendarCheck,
@@ -15,6 +15,7 @@ import style from "./poster.scss";
 import { Link } from "react-router-native";
 import { ROUTER } from "../../Router/constants";
 import { imgPoster } from "../utils";
+import { getPosters, getProfile } from "../../API/api";
 
 const Poster = ({ setPoster }) => {
   const posters = useSelector(posterSelector);
@@ -22,9 +23,24 @@ const Poster = ({ setPoster }) => {
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
   const [sizeIcon] = useState(11);
+  const [refresh, setRefresh] = useState(false);
+  const dicpatch = useDispatch();
+
+  const onChengeRefresh = () => {
+    setRefresh(true);
+    getPosters(dicpatch);
+    getProfile(dicpatch);
+    setTimeout(() => {
+      setRefresh(false);
+    }, 3000);
+  };
 
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
+  };
+
+  const onScrollChenge = (contentWidth, contentHeight) => {
+    console.log(contentWidth, contentHeight);
   };
 
   useEffect(() => {
@@ -32,7 +48,16 @@ const Poster = ({ setPoster }) => {
   }, [posters, widthImg]);
   if (posters.loading || loading) return <></>;
   return (
-    <ScrollView style={style.scrollContainer}>
+    <ScrollView
+      onScrollToTop={(e) => console.log(e.nativeEvent.contentOffset.y)}
+      refreshControl={
+        <RefreshControl
+          onRefresh={() => onChengeRefresh()}
+          refreshing={refresh}
+        />
+      }
+      style={style.scrollContainer}
+    >
       <View style={style.container}>
         {posters.posters.map((poster) => {
           return (
