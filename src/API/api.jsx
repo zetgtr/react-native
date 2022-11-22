@@ -5,15 +5,16 @@ import { setAllPostersAction } from "../Store/poster/actions";
 import { setAllProfileAction } from "../Store/profile/actions";
 import { date, dateTime } from "./utils";
 
-
-function api(url,fun){
+function api(url, fun) {
   axios
-    .get(url).then((res)=>fun(res)).catch((error) => {
+    .get(url)
+    .then((res) => fun(res))
+    .catch((error) => {
       console.log(error);
     });
 }
 
-function setDataPoster(res){
+function setDataPoster(res) {
   let posters = [];
   res.map((element, index) => {
     posters[index] = {
@@ -34,14 +35,13 @@ function setDataPoster(res){
       classImg: "img" + index,
     };
   });
-  return posters
+  return posters;
 }
 
 export const getPosters = (dispatch) => {
-  
-  api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster",(res)=>{
+  api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster", (res) => {
     dispatch(setAllPostersAction(setDataPoster(res.data)));
-  })
+  });
 };
 
 export const signIn = (
@@ -52,35 +52,38 @@ export const signIn = (
   navigate,
   setLoading
 ) => {
-  api(`https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,(res)=>{
-    if(res.data.auth){
-            dispatch(setAuthAction(res.data.auth));
-            navigate(ROUTER.PROFILE)
-          }
-          setLoading(false)
-          setError(res.data.error);
-           })
-};
-
-export const getAuth = (dispatch, navigate) => {
-    api(`https://mo-strelna.ru/mobile/mobile.php?type=get_auth`, (res) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,
+    (res) => {
       if (res.data.auth) {
-        dispatch(setAuthAction(res.data.auth))
-        // navigate(ROUTER.PROFILE)};
+        dispatch(setAuthAction(res.data.auth));
+        navigate(ROUTER.PROFILE);
       }
-    })
+      setLoading(false);
+      setError(res.data.error);
+    }
+  );
 };
 
-export const exitAuth = (dispatch,navigate) => {
-  api(`https://mo-strelna.ru/mobile/mobile.php?type=exit_auth`,(res) => {
-      if (!res.data.auth) {
-        dispatch(setAuthAction(res.data.auth))
-        navigate(ROUTER.AUTH)};
-    })
+export const getAuth = (dispatch) => {
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=get_auth`, (res) => {
+    if (res.data.auth) {
+      dispatch(setAuthAction(res.data.auth));
+    }
+  });
+};
+
+export const exitAuth = (dispatch, navigate) => {
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=exit_auth`, (res) => {
+    if (!res.data.auth) {
+      dispatch(setAuthAction(res.data.auth));
+      navigate(ROUTER.AUTH);
+    }
+  });
 };
 
 export const getProfile = (dispatch) => {
-  api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`,(res)=>{
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`, (res) => {
     dispatch(setAllProfileAction(setDataPoster(res.data.invites)));
-  })
-}
+  });
+};

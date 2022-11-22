@@ -7,7 +7,7 @@ import Poster from "../Components/poster/poster";
 import { useEffect, useState } from "react";
 import PosterInfo from "../Components/posterInfo/posterInfo";
 import { useDispatch } from "react-redux";
-import { getPosters } from "../API/api";
+import { getPosters, getProfile } from "../API/api";
 import Home from "../Components/home/home";
 import { Auth } from "../Components/auth/auth";
 import { ProFile } from "../Components/profile/profile";
@@ -21,6 +21,7 @@ const Router = () => {
 
   useEffect(() => {
     getPosters(dicpatch);
+    getProfile(dicpatch);
   }, [dicpatch]);
   return (
     <NativeRouter>
@@ -37,9 +38,13 @@ const Router = () => {
           <Route
             exact
             path={ROUTER.HOME}
-            element={<Home 
-              setBack={setBack} setTitle={setTitle} setPagePoster={setPagePoster}
-              ></Home>}
+            element={
+              <Home
+                setBack={setBack}
+                setTitle={setTitle}
+                setPagePoster={setPagePoster}
+              ></Home>
+            }
           />
           <Route
             exact
@@ -56,7 +61,13 @@ const Router = () => {
           />
           <Route
             path={ROUTER.PROFILE}
-            element={<ProFile setBack={setBack} setPoster={setPoster} setTitle={setTitle} />}
+            element={
+              <ProFile
+                setBack={setBack}
+                setPoster={setPoster}
+                setTitle={setTitle}
+              />
+            }
           />
           <Route
             exact
