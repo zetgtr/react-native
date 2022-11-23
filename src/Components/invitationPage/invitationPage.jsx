@@ -11,7 +11,7 @@ export const InvitationPage = ({poster}) => {
         <Text>Получить приглашение на: «{poster.title}» </Text>
         <Text>КТО ПОЙДЁТ?</Text>
         <Text>Пожалуйста, отметьте, на кого оформить приглашение.</Text>
-        <Famaly invitation={true}/>
+        <Famaly invitation={true} poster={poster}/>
         </View>
       </View>
     </ScrollView>

@@ -9,11 +9,20 @@
     margin-bottom: 5px;
     margin-top: 5px;
     position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     // background: #f7f8fa;
     // flex-direction: row;
     border-radius: 10px;
     border: 1px solid #f3f3f3;
     padding: 15px;
+}
+
+.check{
+    top: 15;
+    right: 15;
+    position: absolute;
 }
 
 .icon{
@@ -44,7 +53,7 @@
 }
 
 .text{
-    color: #aeaeaf;
+    color: #808080;
     line-height: 14.4px;
     font-size: 11px;
 }

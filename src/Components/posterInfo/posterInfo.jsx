@@ -34,6 +34,8 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const navigate = useNavigate();
   const [buttonColor, setButtonColor] = useState("#f7ca27")
 
+  console.log(familys);
+
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
       style.img = {

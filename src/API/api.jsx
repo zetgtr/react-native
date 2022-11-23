@@ -14,6 +14,7 @@ function api(url, fun) {
     });
 }
 
+
 function setDataPoster(res) {
   let posters = [];
   res?.map((element, index) => {
@@ -23,10 +24,12 @@ function setDataPoster(res) {
       tickets: element.tickets,
       place: element.place,
       startsAt: date(element.startsAt),
+      stamp: element.startsAt,
       timeStartAt: dateTime(element.startsAt),
       active: element.active,
       timeEndsAt: dateTime(element.endsAt),
       forCitizens: element.forCitizens,
+      id: element.id,
       limitation: element.limitation,
       regEndsAt: date(element.regEndsAt),
       regStartsAt: date(element.regStartsAt),
@@ -45,6 +48,7 @@ function setFamilys(res) {
       firstname: element.firstname,
       lastname: element.lastname,
       patronymic: element.patronymic,
+      id: element.id,
       citizen: element.citizen,
       valid: element.valid,
       novalid: element.novalid,
@@ -111,3 +115,15 @@ export const getProfile = (dispatch) => {
     );
   });
 };
+
+export const setInvie = (familys, poster) => {
+  let ids;
+  familys.map((el)=>{
+    ids = ids + ids ? ', ' : "" + el.id
+  })
+  api(`https://mo-strelna.ru/mobile/mobile.php?type=invite&id=${ids}&event=${poster.id}&stamp=${poster.stamp}`, (res) => {
+    console.log('====================================');
+    console.log(res.data);
+    console.log('====================================');
+  })
+}

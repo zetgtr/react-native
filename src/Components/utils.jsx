@@ -32,7 +32,7 @@ export const imgPoster = (
 export const userValidation = (user,auth,poster) => {
   let invates = false;
   if(poster.limitation != 0 || auth){
-    if(user.valid){
+    if(user?.valid){
       if(poster.forCitizens == 1){
         if(user.citizen)
         {
