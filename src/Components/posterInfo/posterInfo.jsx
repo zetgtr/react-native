@@ -32,27 +32,26 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const { auth } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
   const navigate = useNavigate();
-  const [buttonColor, setButtonColor] = useState("#f7ca27")
-
-  console.log(familys);
+  const [buttonColor, setButtonColor] = useState("#f7ca27");
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
       style.img = {
         width: widthImg - 30,
-        height: (widthImg - 30) + (widthImg - 30) * ((height - width) / width),
+        height: widthImg - 30 + (widthImg - 30) * ((height - width) / width),
+        borderRadius: 5,
       };
       setRender(!render);
     });
   };
 
   const onChengeInvitation = () => {
-    invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
+    // invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   const onChangeButtonColor = () => {
     console.log(123);
-    setButtonColor('#505050')
-  }
+    setButtonColor("#505050");
+  };
 
   useEffect(() => {
     setInvitationButton(userValidation(familys[0], auth, poster));
@@ -76,7 +75,7 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
                 source={{
                   uri: poster.photo,
                 }}
-                style={[style.img , {borderRadius: "5"}]}
+                style={style.img}
               />
             </View>
             <Text style={style.textInfoHeader}>Информация</Text>
@@ -161,7 +160,9 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
                 />
                 <Text style={style.infoText}>{poster.place}</Text>
               </View>
-              {poster.description && <Text style={style.textInfoDescription}>Описание</Text>}
+              {poster.description && (
+                <Text style={style.textInfoDescription}>Описание</Text>
+              )}
               <Text style={style.textDescription}>{poster.description}</Text>
             </View>
           </View>
@@ -169,33 +170,32 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
       </ScrollView>
       {posterPage && (
         <TouchableHighlight
-          onPress={() => { 
-            poster.availableTickets > 0 &&
-            onChengeInvitation()
-            onChangeButtonColor()
+          underlayColor="#3c52a6"
+          onPress={() => {
+            poster.availableTickets > 0 && onChengeInvitation();
+            onChangeButtonColor();
           }}
           // backgroundColor = {buttonColor}
           style={[
             poster.availableTickets > 0
               ? style.invitationButton
-              : style.invitationButtonNone
-          , {backgroundColor: buttonColor}]}
+              : style.invitationButtonNone,
+          ]}
         >
-          <Text style={style.textInvitation}>
+          <>
             {poster.availableTickets > 0 ? (
               <>
                 <FontAwesomeIcon
                   size={15}
-                  style={[style.fontAwesomeIcon, {
-                  }]}
+                  style={style.fontAwesomeIcon}
                   icon={faTicketAlt}
-                />{" "}
-                <Text style={style.textInvitationText}> ПОЛУЧИТЬ ПРИГЛАШЕНИЕ </Text>{" "}
+                />
+                <Text style={style.textInvitation}> ПОЛУЧИТЬ ПРИГЛАШЕНИЕ </Text>
               </>
             ) : (
-              "РЕГИСТРАЦИЯ ЗАКРЫТА"
+              <Text style={style.textInvitation}>РЕГИСТРАЦИЯ ЗАКРЫТА</Text>
             )}
-          </Text>
+          </>
         </TouchableHighlight>
       )}
       {/* <Button
