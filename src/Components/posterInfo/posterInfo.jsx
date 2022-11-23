@@ -1,5 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import style from "./posterInfo.scss";
 
 import {
@@ -25,12 +32,13 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const { auth } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
   const navigate = useNavigate();
+  const [buttonColor, setButtonColor] = useState("#f7ca27")
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
       style.img = {
-        width: widthImg,
-        height: widthImg + widthImg * ((height - width) / width),
+        width: widthImg - 30,
+        height: (widthImg - 30) + (widthImg - 30) * ((height - width) / width),
       };
       setRender(!render);
     });
@@ -39,6 +47,10 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const onChengeInvitation = () => {
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
+  const onChangeButtonColor = () => {
+    console.log(123);
+    setButtonColor('#505050')
+  }
 
   useEffect(() => {
     setInvitationButton(userValidation(familys[0], auth, poster));
@@ -57,12 +69,14 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
             onLayout={(e) => onLayoutImg(e.nativeEvent.layout.width)}
             style={style.boxPoster}
           >
-            <Image
-              source={{
-                uri: poster.photo,
-              }}
-              style={style.img}
-            />
+            <View style={style.imgContainer}>
+              <Image
+                source={{
+                  uri: poster.photo,
+                }}
+                style={[style.img , {borderRadius: "5"}]}
+              />
+            </View>
             <Text style={style.textInfoHeader}>Информация</Text>
             <View style={style.infoBox}>
               <View style={style.info}>
@@ -145,27 +159,42 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
                 />
                 <Text style={style.infoText}>{poster.place}</Text>
               </View>
+              {poster.description && <Text style={style.textInfoDescription}>Описание</Text>}
               <Text style={style.textDescription}>{poster.description}</Text>
             </View>
           </View>
         </View>
       </ScrollView>
       {posterPage && (
-        <TouchableOpacity
-          onPress={() => poster.availableTickets > 0 && onChengeInvitation()}
-          style={
+        <TouchableHighlight
+          onPress={() => { 
+            poster.availableTickets > 0 &&
+            onChengeInvitation()
+            onChangeButtonColor()
+          }}
+          // backgroundColor = {buttonColor}
+          style={[
             poster.availableTickets > 0
               ? style.invitationButton
               : style.invitationButtonNone
-          }
+          , {backgroundColor: buttonColor}]}
         >
-          {poster.availableTickets > 0 && <FontAwesomeIcon
+          <Text style={style.textInvitation}>
+            {poster.availableTickets > 0 ? (
+              <>
+                <FontAwesomeIcon
                   size={15}
-                  style={{color: "#FFF", marginTop: 1}}
+                  style={[style.fontAwesomeIcon, {
+                  }]}
                   icon={faTicketAlt}
-                />}
-          <Text style={style.textInvitation}>{poster.availableTickets > 0 ? "ПОЛУЧИТЬ ПРИГЛАШЕНИЕ" : "РЕГИСТРАЦИЯ ЗАКРЫТА"}</Text>
-        </TouchableOpacity>
+                />{" "}
+                <Text style={style.textInvitationText}> ПОЛУЧИТЬ ПРИГЛАШЕНИЕ </Text>{" "}
+              </>
+            ) : (
+              "РЕГИСТРАЦИЯ ЗАКРЫТА"
+            )}
+          </Text>
+        </TouchableHighlight>
       )}
       {/* <Button
       // color="#f7ca27"

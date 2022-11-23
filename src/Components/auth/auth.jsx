@@ -6,9 +6,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   View,
+  Linking,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -30,13 +32,21 @@ export const Auth = ({ setBack, setTitle }) => {
     setLoading(true);
     signIn(login, password, setError, dispatch, navigate, setLoading);
   };
-  const onLayoutGetHigth = (height) => {
-    style.container = {
-      ...style.container,
-      height,
-    };
-    setRender(!render);
-  };
+  // const onLayoutGetHigth = (height) => {
+  //   style.container = {
+  //     ...style.container,
+  //     height,
+  //   };
+  //   setRender(!render);
+  // };
+  const onRestorePassword = () => {
+    const url = 'https://mo-strelna.ru/auth/recovery/';
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+  }
+  const onRegistration = () => {
+    const url = 'https://mo-strelna.ru/auth/create/';
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+  }
   useEffect(() => {
     setTitle("Авторизация");
     setBack(false);
@@ -48,16 +58,23 @@ export const Auth = ({ setBack, setTitle }) => {
       {auth ? (
         <></>
       ) : (
-        <ScrollView
-          onLayout={(e) => onLayoutGetHigth(e.nativeEvent.layout.height)}
-          style={style.containerScroll}
-        >
+        // <ScrollView
+          // onLayout={(e) => onLayoutGetHigth(e.nativeEvent.layout.height)}
+        //   style={style.containerScroll}
+        // >
           <View style={style.container}>
             <View style={style.box}>
               {loading ? (
                 <ActivityIndicator size="large" color="#4f68c8" />
               ) : (
                 <>
+                  <View style={style.imgContainer}>
+                    <Image
+                      style={style.img}
+                      source={require("../../../img/logotype.png")}
+                    />
+                  </View>
+                  { error && <Text style={{backgroundColor: '#de0000', padding: 10, borderRadius: "5",overflow: 'hidden', color: '#fff', width: '100%', textAlign: 'center',fontSize:'10px'}}>{error}</Text>}
                   <TextInput
                     autoComplete={"name"}
                     style={styles.input}
@@ -73,19 +90,30 @@ export const Auth = ({ setBack, setTitle }) => {
                     placeholder="Пароль"
                     secureTextEntry={true}
                   />
-                  <Text>{error}</Text>
+                  
                   <TouchableOpacity
                     onPress={() => onPressAuth()}
-                    style={style.button}
+                    style={style.buttonBlue}
                   >
-                    <FontAwesomeIcon icon={faSignInAlt} />
-                    <Text>Войти</Text>
+                    <FontAwesomeIcon icon={faSignInAlt} style={[style.iconButton,style.iconButtonBlue]} />
+                    <Text style= {{color: '#fff'}}>Войти</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={style.buttonReg}
+                    onPress={() => onRegistration()}
+                  >
+                    <Text>Регистрация</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => onRestorePassword()}
+                  >
+                    <Text style={{color: '#3c52a6', marginTop: 0}}>Восстановление пароля</Text>
                   </TouchableOpacity>
                 </>
               )}
             </View>
           </View>
-        </ScrollView>
+        // </ScrollView>
       )}
     </>
   );
@@ -98,5 +126,7 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderColor: '#ced4da',
+    // color: '#808080'
   },
 });

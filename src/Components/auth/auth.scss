@@ -1,6 +1,7 @@
 
 
 .containerScroll{
+    flex: 100;
     height: 100%;
     width: 100%;
     // border: 1px solid;
@@ -9,16 +10,16 @@
 }
 
 .container{
-flex: 1;
-background: #4f68c8;
-    // height: 1000;
-    // width: 100%;
+    background: #4f68c8;
+    height: 100%;
+    flex: 10000;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
 
 .box{
-    padding: 15px;
+    padding: 40px 20px;
     border-radius: 10px;
     background: #ffffff;
     width: 90%;
@@ -34,4 +35,40 @@ background: #4f68c8;
     background: transparent;
     font-size: 0.75rem;
     // width: ;
+}
+.img{
+    width: 150px;
+    max-width: 100%;
+    margin: 5px;
+    padding: 10px;
+    height: 100px;
+}
+.imgContainer{
+    height: 100px;
+    margin-bottom: 30px;
+}
+.buttonReg{
+    border: 1px solid #ced4da;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    margin: 12px;
+    height: 40px;
+    justify-content: center;
+}
+.iconButton{
+    margin-right: 10px;
+}
+.iconButtonBlue{
+    color: #fff;
+}
+.buttonBlue{
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    margin: 12px;
+    height: 40px;
+    justify-content: center;
+    border:1px solid #3c52a6;
+    background: #3c52a6;
 }
