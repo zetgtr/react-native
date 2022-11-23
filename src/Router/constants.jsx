@@ -3,4 +3,5 @@ export const ROUTER = {
   PROFILE: "/profile",
   AUTH: "/auth",
   POSTER: "/poster",
+  INVITATION: "/invitation"
 };

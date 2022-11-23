@@ -22,10 +22,6 @@
     margin-top: 10px;
 }
 
-.infoBox{
-
-}
-
 .info{
     flex-direction: row;
     margin-top: 5px;
@@ -45,12 +41,23 @@
 
 .textInvitation{
     color: #fff;
+    font-weight: 700;
+    margin-left: 7px;
 }
 
 .invitationButton{
     height: 50px;
     width: 100%;
     background-color: #f7ca27;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.invitationButtonNone{
+    height: 50px;
+    width: 100%;
+    background-color: #cccccc;
     align-items: center;
     justify-content: center;
 }
@@ -59,4 +66,5 @@
     margin-top: 15px;
     line-height: 14.4px;
     font-size: 11px;
+    margin-bottom: 15px;
 }

@@ -3,6 +3,7 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import style from "./posterInfo.scss";
 
 import {
+  faBuilding,
   faCalendarCheck,
   faCalendarPlus,
   faClock,
@@ -10,11 +11,20 @@ import {
   faTicketAlt,
 } from "@fortawesome/fontawesome-free-solid";
 import { useEffect, useState } from "react";
-import { Button } from "@react-native-material/core";
+import { authSelector } from "../../Store/auth/selector";
+import { useSelector } from "react-redux";
+import { userValidation } from "../utils";
+import { profileSelector } from "../../Store/profile/selector";
+import { ROUTER } from "../../Router/constants";
+import { useNavigate } from "react-router-native";
 
-const PosterInfo = ({ setTitle, setBack, poster }) => {
+const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const [render, setRender] = useState(false);
+  const [invitationButton, setInvitationButton] = useState(false);
   const [sizeIcon] = useState(11);
+  const { auth } = useSelector(authSelector);
+  const { familys } = useSelector(profileSelector);
+  const navigate = useNavigate();
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
@@ -26,7 +36,12 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
     });
   };
 
+  const onChengeInvitation = () => {
+    invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
+  };
+
   useEffect(() => {
+    setInvitationButton(userValidation(familys[0], auth, poster));
     setTitle("назад");
     setBack(true);
   }, []);
@@ -90,6 +105,18 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
                     : "Билетов: " + poster.availableTickets}
                 </Text>
               </View>
+              {poster.forCitizens != 0 && (
+                <View style={style.info}>
+                  <FontAwesomeIcon
+                    style={style.icon}
+                    icon={faBuilding}
+                    size={sizeIcon}
+                  />
+                  <Text style={style.infoText}>
+                    Только для жителей Стрельны
+                  </Text>
+                </View>
+              )}
               <View style={style.info}>
                 <FontAwesomeIcon
                   size={sizeIcon}
@@ -97,8 +124,7 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
                   icon={faCalendarPlus}
                 />
                 <Text style={style.infoText}>
-                  Начало регистрации:
-                  {poster.regStartsAt}
+                  Начало регистрации: {poster.regStartsAt}
                 </Text>
               </View>
               <View style={style.info}>
@@ -108,8 +134,7 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
                   icon={faCalendarPlus}
                 />
                 <Text style={style.infoText}>
-                  Конец регистрации:
-                  {poster.regEndsAt}
+                  Конец регистрации: {poster.regEndsAt}
                 </Text>
               </View>
               <View style={style.info}>
@@ -125,9 +150,23 @@ const PosterInfo = ({ setTitle, setBack, poster }) => {
           </View>
         </View>
       </ScrollView>
-      <TouchableOpacity style={style.invitationButton}>
-        <Text style={style.textInvitation}>Получить приглашение!</Text>
-      </TouchableOpacity>
+      {posterPage && (
+        <TouchableOpacity
+          onPress={() => poster.availableTickets > 0 && onChengeInvitation()}
+          style={
+            poster.availableTickets > 0
+              ? style.invitationButton
+              : style.invitationButtonNone
+          }
+        >
+          {poster.availableTickets > 0 && <FontAwesomeIcon
+                  size={15}
+                  style={{color: "#FFF", marginTop: 1}}
+                  icon={faTicketAlt}
+                />}
+          <Text style={style.textInvitation}>{poster.availableTickets > 0 ? "ПОЛУЧИТЬ ПРИГЛАШЕНИЕ" : "РЕГИСТРАЦИЯ ЗАКРЫТА"}</Text>
+        </TouchableOpacity>
+      )}
       {/* <Button
       // color="#f7ca27"
       // style={{ height: 50, justifyContent: "center" }}

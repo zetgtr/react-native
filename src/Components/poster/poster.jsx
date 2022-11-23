@@ -3,6 +3,7 @@ import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
+  faBuilding,
   faCalendarCheck,
   faCalendarPlus,
   faClock,
@@ -17,7 +18,7 @@ import { ROUTER } from "../../Router/constants";
 import { imgPoster } from "../utils";
 import { getPosters, getProfile } from "../../API/api";
 
-const Poster = ({ setPoster }) => {
+const Poster = ({ setPoster, setPosterPage }) => {
   const posters = useSelector(posterSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ const Poster = ({ setPoster }) => {
     getProfile(dicpatch);
     setTimeout(() => {
       setRefresh(false);
-    }, 3000);
+    }, 1000);
   };
 
   const onLayoutImg = (widthImg) => {
@@ -63,7 +64,10 @@ const Poster = ({ setPoster }) => {
           return (
             <Link
               key={poster.classImg}
-              onPress={() => setPoster(poster)}
+              onPress={() => {
+                setPoster(poster);
+                setPosterPage(true);
+              }}
               style={style.posterContainer}
               underlayColor
               to={ROUTER.POSTER}
@@ -112,6 +116,18 @@ const Poster = ({ setPoster }) => {
                           : "Билетов: " + poster.availableTickets}
                       </Text>
                     </View>
+                    {poster.forCitizens != 0 && (
+                      <View style={style.info}>
+                        <FontAwesomeIcon
+                          style={style.icon}
+                          icon={faBuilding}
+                          size={sizeIcon}
+                        />
+                        <Text style={style.infoText}>
+                          Только для жителей Стрельны
+                        </Text>
+                      </View>
+                    )}
                     <View style={style.info}>
                       <FontAwesomeIcon
                         style={style.icon}

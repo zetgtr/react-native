@@ -7,9 +7,10 @@ import {
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-native";
+import { getPosters, getProfile } from "../../API/api";
 import { ROUTER } from "../../Router/constants";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
@@ -21,6 +22,17 @@ const Invitation = ({ setPoster }) => {
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
   const [sizeIcon] = useState(11);
+  const [refresh, setRefresh] = useState(false);
+  const dicpatch = useDispatch();
+
+  const onChengeRefresh = () => {
+    setRefresh(true);
+    getPosters(dicpatch);
+    getProfile(dicpatch);
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
 
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
@@ -31,7 +43,11 @@ const Invitation = ({ setPoster }) => {
   }, [invites, widthImg]);
   if (loading) return <></>;
   return (
-    <ScrollView>
+    <ScrollView refreshControl={
+      <RefreshControl
+        onRefresh={() => onChengeRefresh()}
+        refreshing={refresh}
+      />} >
       <View style={style.container}>
         {invites.map((poster) => (
           <Link

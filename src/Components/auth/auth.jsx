@@ -45,7 +45,7 @@ export const Auth = ({ setBack, setTitle }) => {
   }, []);
   return (
     <>
-      {auth.auth ? (
+      {auth ? (
         <></>
       ) : (
         <ScrollView

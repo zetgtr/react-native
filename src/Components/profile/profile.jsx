@@ -7,7 +7,7 @@ import { Famaly } from "../family/family";
 import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
 
-export const ProFile = ({ setBack, setPoster, setTitle }) => {
+export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage }) => {
   const dicpatch = useDispatch();
   const navigate = useNavigate();
   const [invitation, setInvitation] = useState(true);
@@ -26,6 +26,7 @@ export const ProFile = ({ setBack, setPoster, setTitle }) => {
     setFamily(true);
   };
   useEffect(() => {
+    setPosterPage(false)
     setBack(false);
     getProfile(dicpatch);
     setTitle("Профиль");

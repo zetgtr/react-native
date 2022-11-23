@@ -7,27 +7,31 @@ import Poster from "../Components/poster/poster";
 import { useEffect, useState } from "react";
 import PosterInfo from "../Components/posterInfo/posterInfo";
 import { useDispatch } from "react-redux";
-import { getPosters, getProfile } from "../API/api";
+import { getAuth, getPosters, getProfile } from "../API/api";
 import Home from "../Components/home/home";
 import { Auth } from "../Components/auth/auth";
 import { ProFile } from "../Components/profile/profile";
+import { InvitationPage } from "../Components/invitationPage/invitationPage";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
   const [poster, setPoster] = useState();
   const [back, setBack] = useState(false);
   const [pagePoster, setPagePoster] = useState(false);
+  const [posterPage, setPosterPage] = useState(false);
   const dicpatch = useDispatch();
 
   useEffect(() => {
     getPosters(dicpatch);
     getProfile(dicpatch);
+    getAuth(dicpatch);
   }, [dicpatch]);
   return (
     <NativeRouter>
       <View style={style.container}>
         <Header back={back} title={title} />
         <Poster
+          setPosterPage={setPosterPage}
           setTitle={setTitle}
           setBack={setBack}
           back={back}
@@ -41,6 +45,7 @@ const Router = () => {
             element={
               <Home
                 setBack={setBack}
+                setPosterPage={setPosterPage}
                 setTitle={setTitle}
                 setPagePoster={setPagePoster}
               ></Home>
@@ -51,6 +56,7 @@ const Router = () => {
             path={ROUTER.POSTER}
             element={
               <PosterInfo
+                posterPage={posterPage}
                 setTitle={setTitle}
                 setBack={setBack}
                 setPagePoster={setPagePoster}
@@ -63,11 +69,16 @@ const Router = () => {
             path={ROUTER.PROFILE}
             element={
               <ProFile
+                setPosterPage={setPosterPage}
                 setBack={setBack}
                 setPoster={setPoster}
                 setTitle={setTitle}
               />
             }
+          />
+          <Route
+            path={ROUTER.INVITATION}
+            element={<InvitationPage poster={poster}/>}
           />
           <Route
             exact

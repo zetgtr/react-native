@@ -10,16 +10,28 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Banner, Button, HStack, Text } from "@react-native-material/core";
 import { useState } from "react";
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { useSelector } from "react-redux";
+import { RefreshControl, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosters, getProfile } from "../../API/api";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "./family.scss";
 
-export const Famaly = () => {
+export const Famaly = ({invitation}) => {
   const { familys } = useSelector(profileSelector);
   const [sizeIcon] = useState(11);
   const [banner, setBanner] = useState(false);
   const [textBanner, setTextBanner] = useState("");
+  const [refresh, setRefresh] = useState(false);
+  const dicpatch = useDispatch();
+
+  const onChengeRefresh = () => {
+    setRefresh(true);
+    getPosters(dicpatch);
+    getProfile(dicpatch);
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
   const onChengeBaner = (text) => {
     setBanner(true);
     setTextBanner(text);
@@ -30,7 +42,12 @@ export const Famaly = () => {
   return (
     <>
       <>
-        <ScrollView style={style.scroll}>
+        <ScrollView refreshControl={
+        !invitation && <RefreshControl
+          onRefresh={() => onChengeRefresh()}
+          refreshing={refresh}
+        />
+      } style={style.scroll}>
           <View style={style.container}>
             {familys.map((family, index) => (
               <View key={index} style={style.containerFamily}>
@@ -100,18 +117,17 @@ export const Famaly = () => {
                       <Text style={style.textButtonTriangle}>Отклонен</Text>
                     </TouchableOpacity>
                   ) : family.valid ? (
-                    <TouchableOpacity style={stayles.button}>
+                    <TouchableOpacity onPress={() =>
+                      onChengeBaner(
+                        "Вы можете оформлять приглашения на мероприятия для этого члена семьи."
+                      )
+                    } style={stayles.button}>
                       <FontAwesomeIcon
                         size={sizeIcon}
                         style={style.iconCircle}
                         icon={faCheckCircle}
                       />
                       <Text
-                        onPress={() =>
-                          onChengeBaner(
-                            "Вы можете оформлять приглашения на мероприятия для этого члена семьи."
-                          )
-                        }
                         style={style.textButtonCircle}
                       >
                         Подтверждён

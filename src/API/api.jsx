@@ -16,7 +16,7 @@ function api(url, fun) {
 
 function setDataPoster(res) {
   let posters = [];
-  res.map((element, index) => {
+  res?.map((element, index) => {
     posters[index] = {
       title: element.title,
       description: element.description,
@@ -40,7 +40,7 @@ function setDataPoster(res) {
 
 function setFamilys(res) {
   let familys = [];
-  res.map((element, index) => {
+  res?.map((element, index) => {
     familys[index] = {
       firstname: element.firstname,
       lastname: element.lastname,
