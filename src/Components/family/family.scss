@@ -50,6 +50,7 @@
    margin-bottom: 5px;
 //    margin-left: 10px;
    font-weight: 700;
+   width: 85%;
 }
 
 .text{
@@ -109,6 +110,7 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .textButton{

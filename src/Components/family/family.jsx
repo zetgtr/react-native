@@ -23,7 +23,7 @@ import { getPosters, getProfile, setInvie } from "../../API/api";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "./family.scss";
 
-export const Famaly = ({ invitation, members, setMembers }) => {
+export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
   const { familys } = useSelector(profileSelector);
   const [sizeIcon] = useState(11);
   const [banner, setBanner] = useState(false);
@@ -42,13 +42,10 @@ export const Famaly = ({ invitation, members, setMembers }) => {
     }, 1000);
   };
   const onChengeFamily = (id) => {
-    let data = [];
     members[id] = members[id] ? false : true;
     Object.keys(members).map((key) => {
       members[key] &&
-        (data["ids"] =
-          (data["ids"] ? data["ids"] : "") +
-          (data["ids"] ? ", " + key : "" + key));
+        setIds((ids ? ids : "")+ (ids ? ", " + key : "" + key))
     });
     members["ids"] = data["ids"];
     setMembers(members);

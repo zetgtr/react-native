@@ -15,8 +15,9 @@ import style from "./style.scss";
 export const InvitationPage = ({ poster }) => {
   const [members, setMembers] = useState({});
   const [error, setError] = useState("");
+  const [ids, setIds] = useState("")
   const onChengeInvitation = () => {
-    setInvie(members["ids"], poster, setError, setMembers);
+    setInvie(ids, poster, setError, setMembers);
   };
   return (
     <>
@@ -30,8 +31,9 @@ export const InvitationPage = ({ poster }) => {
         <Famaly
           invitation={true}
           members={members}
+          ids={ids}
+          setIds={setIds}
           setMembers={setMembers}
-          poster={poster}
         />
       </View>
       <TouchableHighlight
