@@ -25,7 +25,7 @@ import { profileSelector } from "../../Store/profile/selector";
 import { ROUTER } from "../../Router/constants";
 import { useNavigate } from "react-router-native";
 
-const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
+const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout }) => {
   const [render, setRender] = useState(false);
   const [invitationButton, setInvitationButton] = useState(false);
   const [sizeIcon] = useState(11);
@@ -48,6 +48,8 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   useEffect(() => {
+    console.log(23123);
+    setLogout(setLogout)
     setInvitationButton(userValidation(familys[0], auth, poster));
     setTitle("назад");
     setBack(true);

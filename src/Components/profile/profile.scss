@@ -1,9 +1,28 @@
 .container{
     flex: 10000;
+    overflow: hidden;
 }
 
 .header{
-    width: 90%;
+    // width: 100%;
+    margin: 0 10px;
     flex-direction: row;
+    height: 45px;
+    // background-color: red;
+    align-items: center;
     justify-content: space-around;
+    overflow: hidden;
+}
+.bar{
+    top: -2px;
+    height: 2px;
+    background: #3c52a6;
+    width: 33.30%;
+    transition: 0.3s linear;
+    // margin-left: 10px;
+    // margin-right: 10px;
+}
+.buttonHeader{
+    flex: 1;
+    align-items: center;
 }

@@ -16,7 +16,7 @@ import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
 import { imgPoster } from "../utils";
 
-const Invitation = ({ setPoster }) => {
+const Invitation = ({ setPoster,setLogout }) => {
   const { invites } = useSelector(profileSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,9 +37,9 @@ const Invitation = ({ setPoster }) => {
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
   };
-
   useEffect(() => {
     imgPoster(invites, widthImg, setStyleImg, styleImg, setLoading);
+    // setLogout(false);
   }, [invites, widthImg]);
   if (loading) return <></>;
   return (
@@ -52,7 +52,7 @@ const Invitation = ({ setPoster }) => {
         {invites.map((poster) => (
           <Link
             key={poster.classImg}
-            onPress={() => setPoster(poster)}
+            onPress={() => {setLogout(false); setPoster(poster)}}
             style={style.posterContainer}
             underlayColor
             to={ROUTER.POSTER}

@@ -23,11 +23,15 @@ export const InvitationPage = ({ poster }) => {
     <>
       <View style={style.containerScroll}>
         <View style={style.container}>
-          <Text>{error}</Text>
-          <Text>Получить приглашение на: «{poster.title}» </Text>
-          <Text>КТО ПОЙДЁТ?</Text>
-          <Text>Пожалуйста, отметьте, на кого оформить приглашение.</Text>
+        
+          <View>
+            <Text style={{marginTop:5}}>Получить приглашение на:</Text>
+            <Text style={style.title}>«{poster.title}»</Text>  
+          </View>
+          <Text style={style.subtitle}>КТО ПОЙДЁТ?</Text>
+          <Text style={{fontSize: 10, marginTop: 5, marginBottom: 5}}>Пожалуйста, отметьте, на кого оформить приглашение.</Text>
         </View>
+        { error && <Text style={{backgroundColor: '#de0000', padding: 10, borderRadius: "5",overflow: 'hidden', color: '#fff', width: '90%', textAlign: 'center',fontSize:'10px'}}>{error}</Text>}
         <Famaly
           invitation={true}
           members={members}

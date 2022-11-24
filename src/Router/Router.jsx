@@ -19,8 +19,9 @@ const Router = () => {
   const [back, setBack] = useState(false);
   const [pagePoster, setPagePoster] = useState(false);
   const [posterPage, setPosterPage] = useState(false);
+  const [logout, setLogout] = useState(false);
   const dicpatch = useDispatch();
-
+  console.log(logout);
   useEffect(() => {
     getPosters(dicpatch);
     getProfile(dicpatch);
@@ -29,7 +30,7 @@ const Router = () => {
   return (
     <NativeRouter>
       <View style={style.container}>
-        <Header back={back} title={title} />
+        <Header back={back} title={title} logout={logout} />
         <Poster
           setPosterPage={setPosterPage}
           setTitle={setTitle}
@@ -44,6 +45,7 @@ const Router = () => {
             path={ROUTER.HOME}
             element={
               <Home
+              setLogout={setLogout}
                 setBack={setBack}
                 setPosterPage={setPosterPage}
                 setTitle={setTitle}
@@ -56,6 +58,7 @@ const Router = () => {
             path={ROUTER.POSTER}
             element={
               <PosterInfo
+              setLogout={setLogout}
                 posterPage={posterPage}
                 setTitle={setTitle}
                 setBack={setBack}
@@ -73,6 +76,8 @@ const Router = () => {
                 setBack={setBack}
                 setPoster={setPoster}
                 setTitle={setTitle}
+                setLogout={setLogout}
+                logout={logout}
               />
             }
           />
