@@ -80,7 +80,6 @@ export const signIn = (
         dispatch(setAuthAction(res.data.auth));
         navigate(ROUTER.PROFILE);
       }
-      console.log(res.data);
       setLoading(false);
       setError(res.data.error);
     }
