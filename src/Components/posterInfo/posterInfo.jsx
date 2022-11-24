@@ -32,7 +32,6 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   const { auth } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
   const navigate = useNavigate();
-  const [buttonColor, setButtonColor] = useState("#f7ca27");
 
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
@@ -46,13 +45,8 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
   };
 
   const onChengeInvitation = () => {
-    // invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
+    invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
-  const onChangeButtonColor = () => {
-    console.log(123);
-    setButtonColor("#505050");
-  };
-
   useEffect(() => {
     setInvitationButton(userValidation(familys[0], auth, poster));
     setTitle("назад");
@@ -173,9 +167,7 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage }) => {
           underlayColor="#3c52a6"
           onPress={() => {
             poster.availableTickets > 0 && onChengeInvitation();
-            onChangeButtonColor();
           }}
-          // backgroundColor = {buttonColor}
           style={[
             poster.availableTickets > 0
               ? style.invitationButton

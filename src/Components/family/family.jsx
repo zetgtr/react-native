@@ -23,14 +23,14 @@ import { getPosters, getProfile, setInvie } from "../../API/api";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "./family.scss";
 
-export const Famaly = ({ invitation, poster }) => {
+export const Famaly = ({ invitation, members, setMembers }) => {
   const { familys } = useSelector(profileSelector);
   const [sizeIcon] = useState(11);
   const [banner, setBanner] = useState(false);
   const [textBanner, setTextBanner] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [render, setRender] = useState(false)
-  const [members, setMembers] = useState({})
+  const [render, setRender] = useState(false);
+
   const dicpatch = useDispatch();
 
   const onChengeRefresh = () => {
@@ -42,11 +42,17 @@ export const Famaly = ({ invitation, poster }) => {
     }, 1000);
   };
   const onChengeFamily = (id) => {
-    let data = members
-    data[id]= data[id] ? false : true
-    setMembers(data)
-    setRender(!render)
-    // setInvie(familys, poster);
+    let data = [];
+    members[id] = members[id] ? false : true;
+    Object.keys(members).map((key) => {
+      members[key] &&
+        (data["ids"] =
+          (data["ids"] ? data["ids"] : "") +
+          (data["ids"] ? ", " + key : "" + key));
+    });
+    members["ids"] = data["ids"];
+    setMembers(members);
+    setRender(!render);
   };
 
   const onChengeBaner = (text) => {
@@ -78,7 +84,7 @@ export const Famaly = ({ invitation, poster }) => {
                 key={family.id}
                 style={style.containerFamily}
               >
-                <View style={{width: "100%"}}>
+                <View style={{ width: "100%" }}>
                   <Text style={style.name}>
                     {family.lastname} {family.firstname} {family.patronymic}
                   </Text>
@@ -111,7 +117,7 @@ export const Famaly = ({ invitation, poster }) => {
                     </Text>
                   </View>
                   <View style={style.buttonContainer}>
-                    {!family.citizen &&  (
+                    {!family.citizen && (
                       <TouchableOpacity
                         onPress={() =>
                           onChengeBaner(
@@ -147,25 +153,21 @@ export const Famaly = ({ invitation, poster }) => {
                         <Text style={style.textButtonTriangle}>Отклонен</Text>
                       </TouchableOpacity>
                     ) : family.valid ? (
-                       (
-                        <TouchableOpacity
-                          onPress={() =>
-                            onChengeBaner(
-                              "Вы можете оформлять приглашения на мероприятия для этого члена семьи."
-                            )
-                          }
-                          style={stayles.button}
-                        >
-                          <FontAwesomeIcon
-                            size={sizeIcon}
-                            style={style.iconCircle}
-                            icon={faCheckCircle}
-                          />
-                          <Text style={style.textButtonCircle}>
-                            Подтверждён
-                          </Text>
-                        </TouchableOpacity>
-                      )
+                      <TouchableOpacity
+                        onPress={() =>
+                          onChengeBaner(
+                            "Вы можете оформлять приглашения на мероприятия для этого члена семьи."
+                          )
+                        }
+                        style={stayles.button}
+                      >
+                        <FontAwesomeIcon
+                          size={sizeIcon}
+                          style={style.iconCircle}
+                          icon={faCheckCircle}
+                        />
+                        <Text style={style.textButtonCircle}>Подтверждён</Text>
+                      </TouchableOpacity>
                     ) : (
                       <TouchableOpacity
                         onPress={() =>
@@ -187,9 +189,36 @@ export const Famaly = ({ invitation, poster }) => {
                     )}
                   </View>
                 </View>
-                <View style={[style.check, {borderRadius: 10}, members[family.id] ? {backgroundColor: "#186f40", borderColor: "#186f40", padding: 12} : {borderColor: "#e5e5e5",borderStyle: "dotted",borderWidth: 2, padding: 10} ]}>
-                  <FontAwesomeIcon size={20} style={members[family.id] ? {color: "#FFF"} : {color: "#e5e5e5"}} icon={faCheckCircle} />
-                </View>
+                {invitation && (
+                  <View
+                    style={[
+                      style.check,
+                      { borderRadius: 10 },
+                      members[family.id]
+                        ? {
+                            backgroundColor: "#186f40",
+                            borderColor: "#186f40",
+                            padding: 12,
+                          }
+                        : {
+                            borderColor: "#e5e5e5",
+                            borderStyle: "dotted",
+                            borderWidth: 2,
+                            padding: 10,
+                          },
+                    ]}
+                  >
+                    <FontAwesomeIcon
+                      size={20}
+                      style={
+                        members[family.id]
+                          ? { color: "#FFF" }
+                          : { color: "#e5e5e5" }
+                      }
+                      icon={faCheckCircle}
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
             ))}
           </View>

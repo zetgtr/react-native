@@ -14,7 +14,6 @@ function api(url, fun) {
     });
 }
 
-
 function setDataPoster(res) {
   let posters = [];
   res?.map((element, index) => {
@@ -116,14 +115,12 @@ export const getProfile = (dispatch) => {
   });
 };
 
-export const setInvie = (familys, poster) => {
-  let ids;
-  familys.map((el)=>{
-    ids = ids + ids ? ', ' : "" + el.id
-  })
-  api(`https://mo-strelna.ru/mobile/mobile.php?type=invite&id=${ids}&event=${poster.id}&stamp=${poster.stamp}`, (res) => {
-    console.log('====================================');
-    console.log(res.data);
-    console.log('====================================');
-  })
-}
+export const setInvie = (ids, poster, setError, setMembers) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=invite&id=${ids}&event=${poster.id}&stamp=${poster.stamp}`,
+    (res) => {
+      setError(res.data);
+      setMembers({});
+    }
+  );
+};

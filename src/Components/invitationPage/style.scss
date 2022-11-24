@@ -1,12 +1,33 @@
-.scroll{
-  flex: 10000;
-}
-
 .containerScroll{
+  flex: 10000;
   width: 100%;
   align-items: center;
 }
 
 .container{
-  width: 95%;
+  width: 90%;
+}
+.invitationButton{
+  height: 50px;
+  background-color: #f7ca27;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.fontAwesomeIcon{
+  color: #fff;
+  margin-top: 1px;
+  margin-right: 6px;
+  align-self: center;
+  
+  justify-content: center;
+}
+.textInvitation{
+  color: #fff;
+  font-weight: 700;
+// border: 1px solid;
+// position: relative;
+  align-items: center;
+  justify-content: center;
+  // flex-direction: column;
 }
