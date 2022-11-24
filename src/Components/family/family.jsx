@@ -47,7 +47,6 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
       members[key] &&
         setIds((ids ? ids : "")+ (ids ? ", " + key : "" + key))
     });
-    members["ids"] = data["ids"];
     setMembers(members);
     setRender(!render);
   };

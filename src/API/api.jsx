@@ -77,11 +77,12 @@ export const signIn = (
     `https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,
     (res) => {
       if (res.data.auth) {
-        dispatch(setAuthAction(res.data.auth));
-        navigate(ROUTER.PROFILE);
+        // dispatch(setAuthAction(res.data.auth));
+        // navigate(ROUTER.PROFILE);
       }
+      console.log(res.data);
       setLoading(false);
-      setError(res.data.error);
+      // setError(res.data.error);
     }
   );
 };
