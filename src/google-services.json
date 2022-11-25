@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "493891331782",
+    "project_id": "mo-strelna-dcc6b",
+    "storage_bucket": "mo-strelna-dcc6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493891331782:android:24219a264ad26dac7519c7",
+        "android_client_info": {
+          "package_name": "com.jitouch.mostrelna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493891331782-e8k2v3pge99t0pa6k7b3ad3fduj561e7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jitouch.mostrelna",
+            "certificate_hash": "ae140e6496094ac61fb65f620d582632686731a2"
+          }
+        },
+        {
+          "client_id": "493891331782-lm424va6of6flci9nrg6ojhorle6mm32.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jitouch.mostrelna",
+            "certificate_hash": "3f37607899a4bab6eceb3be7ae8baac2dda4b7f4"
+          }
+        },
+        {
+          "client_id": "493891331782-lntb375g7n5krfmb27j1lpjnnm2g5uv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOx1kqfW37XPR3-oqECwSE_YGAsDZdHOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493891331782-lntb375g7n5krfmb27j1lpjnnm2g5uv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493891331782:android:897cfe0579aeb51f7519c7",
+        "android_client_info": {
+          "package_name": "com.mostrelna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493891331782-5mqpfks9r642oer1maeptfa703ae5056.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mostrelna",
+            "certificate_hash": "b085218aa657d84f831dd98df1dac4cafb5329a2"
+          }
+        },
+        {
+          "client_id": "493891331782-lntb375g7n5krfmb27j1lpjnnm2g5uv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOx1kqfW37XPR3-oqECwSE_YGAsDZdHOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493891331782-lntb375g7n5krfmb27j1lpjnnm2g5uv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

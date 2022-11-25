@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import Header from "../Components/header/header";
 import MenuApp from "../Components/menu/menu";
