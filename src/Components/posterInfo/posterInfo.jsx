@@ -48,10 +48,10 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout, history 
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   useEffect(() => {
-    // setLogout(setLogout)
+  //   // setLogout(setLogout)
     setInvitationButton(userValidation(familys[0], auth, poster));
     history ? setTitle("Мероприятие") : setTitle("Мое приглашение")
-    setBack(true);
+    // setBack(true);
   }, []);
 
   return (
@@ -190,11 +190,6 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout, history 
           </>
         </TouchableHighlight>
       )}
-      {/* <Button
-      // color="#f7ca27"
-      // style={{ height: 50, justifyContent: "center" }}
-      // title={<Text style={style.textInvitation}>Получить приглашение!</Text>}
-      /> */}
     </>
   );
 };
