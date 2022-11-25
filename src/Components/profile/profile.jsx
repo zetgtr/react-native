@@ -21,7 +21,6 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
   const [value3, setValue3] = useState(234);
   const [width, setWidth] = useState(0)
   const [fadeAnim] = useState(useRef(new Animated.Value(0)).current) 
-  console.log(fadeAnim);
   const calculateBar = () => {
     setValue1((width * 1) )
     setValue2((width * 0));

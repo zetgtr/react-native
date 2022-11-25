@@ -28,6 +28,7 @@ const Router = () => {
     getPosters(dicpatch);
     getProfile(dicpatch);
     getAuth(dicpatch);
+    setCount(11)
   }, [dicpatch]);
   return (
     <NativeRouter>
@@ -47,7 +48,7 @@ const Router = () => {
             path={ROUTER.HOME}
             element={
               <Home
-              setLogout={setLogout}
+                setLogout={setLogout}
                 setBack={setBack}
                 setPosterPage={setPosterPage}
                 setTitle={setTitle}
@@ -92,6 +93,7 @@ const Router = () => {
               <Push 
                 setPoster={setPoster}
                 setTitle={setTitle}
+                setCount={setCount}
               />
             }
           />
@@ -105,7 +107,9 @@ const Router = () => {
             element={<Auth setTitle={setTitle} setBack={setBack} />}
           />
         </Routes>
-        <MenuApp />
+        <MenuApp 
+          count={count}
+        />
       </View>
     </NativeRouter>
   );

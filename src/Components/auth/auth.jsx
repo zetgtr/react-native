@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   View,
   Linking,
+  TouchableHighlight,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -90,14 +91,17 @@ export const Auth = ({ setBack, setTitle }) => {
                     placeholder="Пароль"
                     secureTextEntry={true}
                   />
-                  
-                  <TouchableOpacity
+                  <TouchableHighlight
+                    underlayColor="#f7ca27"
                     onPress={() => onPressAuth()}
                     style={style.buttonBlue}
                   >
-                    <FontAwesomeIcon icon={faSignInAlt} style={[style.iconButton,style.iconButtonBlue]} />
-                    <Text style= {{color: '#fff'}}>Войти</Text>
-                  </TouchableOpacity>
+                    <>
+                      <FontAwesomeIcon icon={faSignInAlt} style={[style.iconButton,style.iconButtonBlue]} />
+                      <Text style= {{color: '#fff'}}>Войти</Text>
+                    </>
+                  </TouchableHighlight>
+                  
                   <TouchableOpacity
                     style={style.buttonReg}
                     onPress={() => onRegistration()}

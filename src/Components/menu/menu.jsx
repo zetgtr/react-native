@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Image, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useSelector } from "react-redux";
@@ -6,11 +7,38 @@ import { ROUTER } from "../../Router/constants";
 import { authSelector } from "../../Store/auth/selector";
 import style from "./menu.scss";
 
-const Menu = () => {
-    const {auth} = useSelector(authSelector)
+
+
+
+
+const Menu = ({count}) => {
+  const [activeAfish, setActiveAfish] = useState(false)
+  const [activeNotifications, setActiveNotifications] = useState(false)
+  const [activeProfile, setActiveProfile] = useState(false)
+  
+  const onActiveAfish = () => {
+    setActiveAfish(true)
+    setActiveProfile(false)
+    setActiveNotifications(false)
+  }
+  const onActiveProfile = () => {
+    setActiveAfish(false)
+    setActiveProfile(true)
+    setActiveNotifications(false)
+  }
+  const onActiveNotifications = () => {
+    setActiveAfish(false)
+    setActiveProfile(false)
+    setActiveNotifications(true)
+  }
+
+  const {auth} = useSelector(authSelector)
+  
   return(
   <View style={style.container}>
-    <Link underlayColor to={ROUTER.HOME}>
+    <Link underlayColor to={ROUTER.HOME}
+      onPress={() => onActiveAfish()}
+    >
       <>
       <Svg
         style={style.svg}
@@ -20,16 +48,18 @@ const Menu = () => {
       >
         <Path
           d="M224 32H64C46.3 32 32 46.3 32 64v64c0 17.7 14.3 32 32 32H441.4c4.2 0 8.3-1.7 11.3-4.7l48-48c6.2-6.2 6.2-16.4 0-22.6l-48-48c-3-3-7.1-4.7-11.3-4.7H288c0-17.7-14.3-32-32-32s-32 14.3-32 32zM480 256c0-17.7-14.3-32-32-32H288V192H224v32H70.6c-4.2 0-8.3 1.7-11.3 4.7l-48 48c-6.2 6.2-6.2 16.4 0 22.6l48 48c3 3 7.1 4.7 11.3 4.7H448c17.7 0 32-14.3 32-32V256zM288 480V384H224v96c0 17.7 14.3 32 32 32s32-14.3 32-32z"
-          stroke="#808080"
+          stroke= {!activeAfish ? "#808080" : '#3c52a6'}
           strokeWidth={30}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </Svg>
-      <Text style={{fontSize:10, justifyContent:"center", textAlign:"center"}}>Афиша</Text>
+      <Text style={!activeAfish ? style.menuText : style.menuTextActive}>Афиша</Text>
       </>
     </Link>
-    <Link underlayColor to={ROUTER.PUSH}>
+    <Link underlayColor to={ROUTER.PUSH}
+       onPress={() => onActiveNotifications()}
+    >
       <View style={style.itemContainer}>
       <Svg
         style={style.svg}
@@ -39,17 +69,19 @@ const Menu = () => {
       >
         <Path
           d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"
-          stroke="#808080"
+          stroke= {!activeNotifications ? "#808080" : '#3c52a6'}
           strokeWidth={30}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </Svg>
-      <Text style={{fontSize:10, justifyContent:"center", textAlign:"center"}}>Уведомления</Text>
-      <View style={style.count}><Text style={{color: '#fff'}}>1</Text></View>
+      <Text style={!activeNotifications ? style.menuText : style.menuTextActive}>Уведомления</Text>
+      <View style={style.count}><Text style={{color: '#fff', fontSize: 8, alignItems: "center", width: '100%', textAlign: "center"}}>{count}</Text></View>
       </View>
     </Link>
-    <Link underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}>
+    <Link underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}
+       onPress={() => onActiveProfile()}
+    >
       <>
       <Svg
         style={style.svg}
@@ -59,13 +91,13 @@ const Menu = () => {
       >
         <Path
           d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-          stroke="#808080"
+          stroke= {!activeProfile ? "#808080" : '#3c52a6'}
           strokeWidth={30}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </Svg>
-      <Text style={{fontSize:10, justifyContent:"center", textAlign:"center"}}>Профиль</Text>
+      <Text style={!activeProfile ? style.menuText : style.menuTextActive}>Профиль</Text>
       </>
     </Link>
   </View>

@@ -5,19 +5,16 @@ import { posterSelector } from "../../Store/poster/selector";
 import style from "./push.scss";
 
 
-const Push = ({setPoster,setTitle}) => {
+const Push = ({setPoster,setTitle,setCount}) => {
     const posters = useSelector(posterSelector);
-    posters.posters.map(el => {
-        console.log(el);
-    });
     useEffect(() => {
         setTitle('Уведомления')
-    })
+    },[])
     return (
         <>
         <ScrollView
-                            style={style.scroll}
-                        >
+            style={style.scroll}
+        >
             {posters.posters.map((poster) => {
                 return(
                     <>

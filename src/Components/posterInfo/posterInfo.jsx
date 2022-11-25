@@ -165,7 +165,6 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout, history 
       </ScrollView>
       {posterPage && (
         <TouchableHighlight
-          underlayColor="#3c52a6"
           onPress={() => {
             poster.availableTickets > 0 && onChengeInvitation();
           }}
