@@ -27,13 +27,18 @@ const Header = ({ title, back , logout }) => {
           source={require("../../../img/logotype.png")}
         />
       </View>
+      
       {back ? (
-        <TouchableOpacity onPress={() => onChengeBack()} style={style.link}>
-          <View style={style.boxBack}>
-            <FontAwesomeIcon style={style.icon} icon={faArrowLeft} />
-            <Text style={style.textBack}>{title}</Text>
+        <>
+          <View style={style.boxText}>
+            <Text style={style.title}>{title}</Text>
           </View>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => onChengeBack()} style={style.link}>
+            <View style={style.boxBack}>
+              <FontAwesomeIcon style={style.icon} icon={faArrowLeft} />
+            </View>
+          </TouchableOpacity>
+        </>
       ) : (
         <View style={style.boxText}>
           <Text style={style.text}>{title}</Text>

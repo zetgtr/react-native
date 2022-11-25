@@ -241,6 +241,7 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
                   variant="text"
                   title="Закрыть"
                   compact
+                  style = {{size: 5}}
                 />
               </HStack>
             }

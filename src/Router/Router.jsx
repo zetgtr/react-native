@@ -4,6 +4,7 @@ import Header from "../Components/header/header";
 import MenuApp from "../Components/menu/menu";
 import { ROUTER } from "./constants";
 import Poster from "../Components/poster/poster";
+import Push from "../Components/push/push";
 import { useEffect, useState } from "react";
 import PosterInfo from "../Components/posterInfo/posterInfo";
 import { useDispatch } from "react-redux";
@@ -16,12 +17,13 @@ import { InvitationPage } from "../Components/invitationPage/invitationPage";
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
   const [poster, setPoster] = useState();
+  const [history, setHistory] = useState(false);
   const [back, setBack] = useState(false);
   const [pagePoster, setPagePoster] = useState(false);
   const [posterPage, setPosterPage] = useState(false);
   const [logout, setLogout] = useState(false);
+  const [count, setCount] = useState(0)
   const dicpatch = useDispatch();
-  console.log(logout);
   useEffect(() => {
     getPosters(dicpatch);
     getProfile(dicpatch);
@@ -50,6 +52,7 @@ const Router = () => {
                 setPosterPage={setPosterPage}
                 setTitle={setTitle}
                 setPagePoster={setPagePoster}
+                setHistory={setHistory}
               ></Home>
             }
           />
@@ -58,13 +61,15 @@ const Router = () => {
             path={ROUTER.POSTER}
             element={
               <PosterInfo
-              setLogout={setLogout}
+                logout={logout}
+                setLogout={setLogout}
                 posterPage={posterPage}
                 setTitle={setTitle}
                 setBack={setBack}
                 setPagePoster={setPagePoster}
                 back={back}
                 poster={poster}
+                history={history}
               />
             }
           />
@@ -77,7 +82,16 @@ const Router = () => {
                 setPoster={setPoster}
                 setTitle={setTitle}
                 setLogout={setLogout}
-                logout={logout}
+                setHistory={setHistory}
+              />
+            }
+          />
+          <Route
+            path={ROUTER.PUSH}
+            element={
+              <Push 
+                setPoster={setPoster}
+                setTitle={setTitle}
               />
             }
           />

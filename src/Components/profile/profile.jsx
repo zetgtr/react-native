@@ -10,7 +10,7 @@ import { Rules } from "../rules/rules"
 
 import React, { useRef } from "react";
 
-export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,logout }) => {
+export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,logout,setHistory}) => {
   const dicpatch = useDispatch();
   const navigate = useNavigate();
   const [invitation, setInvitation] = useState(false);
@@ -20,7 +20,8 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
   const [value2, setValue2] = useState(0);
   const [value3, setValue3] = useState(234);
   const [width, setWidth] = useState(0)
-
+  const [fadeAnim] = useState(useRef(new Animated.Value(0)).current) 
+  console.log(fadeAnim);
   const calculateBar = () => {
     setValue1((width * 1) )
     setValue2((width * 0));
@@ -32,39 +33,42 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
 
   const onChengeExit = () => {
     exitAuth(dicpatch, navigate);
+    
   };
 
   const onChangeInvitation = () => {
+    calculateBar()
     setInvitation(true);
     setFamily(false);
     setRules(false)
-    backAnimated()
+    // setTitle('Мои приглашения')
   };
 
   const onChengeFamily = () => {
+    calculateBar()
+    setHistory(false)
     setInvitation(false);
     setFamily(true);
     setRules(false)
-    moveAnimated()
   };
   const onChengeRules = () => {
+    calculateBar()
     setInvitation(false);
     setFamily(false);
     setRules(true)
-    endAnimated()
   };
+  
   useEffect(() => {
+    setHistory(false)
     setInvitation(true)
     setPosterPage(false)
     setBack(false);
     getProfile(dicpatch);
     setTitle("Профиль");
-    calculateBar()
+    
     !logout && setLogout(true)
   },[dicpatch]);
-
   
-  const fadeAnim = useRef(new Animated.Value(0)).current;
   const moveAnimated = () => {
     Animated.timing(fadeAnim, {
       toValue: value1,
@@ -95,6 +99,7 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
         <TouchableOpacity
           style={style.buttonHeader}
           onPress={() => {
+            backAnimated()
             onChangeInvitation()
           }}
         >
@@ -103,6 +108,7 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
         <TouchableOpacity
           style={[style.buttonHeader]}
           onPress={() => {
+            moveAnimated()
             onChengeFamily()
             // moveAnimated()
           }}
@@ -113,6 +119,7 @@ export const ProFile = ({ setBack, setPoster, setTitle,setPosterPage, setLogout,
           style={[style.buttonHeader,]}
           onPress={() => {
             // onChengeExit()
+            endAnimated()
             onChengeRules()
             // moveAnimated()
           }}

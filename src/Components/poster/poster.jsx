@@ -50,7 +50,7 @@ const Poster = ({ setPoster, setPosterPage }) => {
   if (posters.loading || loading) return <></>;
   return (
     <ScrollView
-      onScrollToTop={(e) => console.log(e.nativeEvent.contentOffset.y)}
+      // onScrollToTop={(e) => console.log(e.nativeEvent.contentOffset.y)}
       refreshControl={
         <RefreshControl
           onRefresh={() => onChengeRefresh()}

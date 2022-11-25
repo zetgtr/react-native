@@ -15,7 +15,14 @@
     height: 35px;
     
 }
-
+.title{
+    justify-content: center;
+    align-items: centers;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    margin: 0 auto;
+}
 .box{
     width: 20%;
     display: flex;
@@ -46,12 +53,6 @@
     font-size: 20px;
 }
 
-.link{
-    flex: 1;
-    width: 100%;
-    padding-right: 15px;
-    height: 50;
-}
 
 .textBack{
     margin-bottom: 3px;
@@ -62,14 +63,35 @@
 
 .icon{
     color: #aeaeaf;
+    color: #3c52a6;
+}
+.link{
+    // top: 30px;
+    // flex: 1;
+    // padding-right: 15px;
+    position: absolute;
+    width: 20%;
+    height: 50;
+    // position: absolute;
+    // z-index: 2;
+    // width: 100%;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    // top: inherit;
 }
 
 .boxBack{
-    flex: 1;
-    width: 100%;
-    height: 50px;
+    // width: 20px;
+    // flex: 1;
+    // width: 100%;
+    // height: 50px;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 15px;
-    flex-direction: row;
+    // margin-right: 15px;
+    right: -5px;
+    width: 20%;
+    z-index: 2;
+    // flex-direction: row;
 }
