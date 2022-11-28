@@ -124,3 +124,12 @@ export const setInvie = (ids, poster, setError, setMembers) => {
     }
   );
 };
+
+export const setToken = (token) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=set_token&token=${token}`,
+    (res) => {
+      console.log(res.data);
+    }
+  );
+};

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import { NativeRouter, Route, Routes } from "react-router-native";
+import { BackHandler, StyleSheet, Text, View } from "react-native";
+import { NativeRouter, Route, Routes, useNavigate } from "react-router-native";
 import Header from "../Components/header/header";
 import MenuApp from "../Components/menu/menu";
 import { ROUTER } from "./constants";
@@ -22,13 +22,35 @@ const Router = () => {
   const [pagePoster, setPagePoster] = useState(false);
   const [posterPage, setPosterPage] = useState(false);
   const [logout, setLogout] = useState(false);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const dicpatch = useDispatch();
+  // const navigate = useNavigate();
+  useEffect(() => {
+    const backAction = () => {
+      // navigate(-1);
+      // Alert.alert("Hold on!", "Are you sure you want to go back?", [
+      //   {
+      //     text: "Cancel",
+      //     onPress: () => null,
+      //     style: "cancel",
+      //   },
+      //   { text: "YES", onPress: () => BackHandler.exitApp() },
+      // ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   useEffect(() => {
     getPosters(dicpatch);
     getProfile(dicpatch);
     getAuth(dicpatch);
-    setCount(11)
+    setCount(11);
   }, [dicpatch]);
   return (
     <NativeRouter>
@@ -90,7 +112,7 @@ const Router = () => {
           <Route
             path={ROUTER.PUSH}
             element={
-              <Push 
+              <Push
                 setPoster={setPoster}
                 setTitle={setTitle}
                 setCount={setCount}
@@ -99,7 +121,7 @@ const Router = () => {
           />
           <Route
             path={ROUTER.INVITATION}
-            element={<InvitationPage poster={poster}/>}
+            element={<InvitationPage poster={poster} />}
           />
           <Route
             exact
@@ -107,9 +129,7 @@ const Router = () => {
             element={<Auth setTitle={setTitle} setBack={setBack} />}
           />
         </Routes>
-        <MenuApp 
-          count={count}
-        />
+        <MenuApp count={count} />
       </View>
     </NativeRouter>
   );

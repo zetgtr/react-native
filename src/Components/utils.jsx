@@ -28,20 +28,12 @@ export const imgPoster = (
   });
 };
 
-
-export const userValidation = (user,auth,poster) => {
+export const userValidation = (user, auth, poster) => {
   let invates = false;
-  if(poster.limitation != 0 || auth){
-    if(user?.valid){
-      if(poster.forCitizens == 1){
-        if(user.citizen)
-        {
-          invates = true;
-        }
-      }else{
-        invates = true;
-      }
-    }  
+  if (poster.limitation != 0 || auth) {
+    if (user?.valid) {
+      invates = true;
+    }
   }
-  return invates
-}
+  return invates;
+};
