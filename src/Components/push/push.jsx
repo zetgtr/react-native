@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import PushNotification from "react-native-push-notification";
+import messaging from "@react-native-firebase/messaging";
 import style from "./push.scss";
 
 const Push = ({
@@ -10,46 +11,55 @@ const Push = ({
   setActiveProfile,
 }) => {
   const [pushs, setPushs] = useState([]);
-//   PushNotification.getDeliveredNotifications((notifcations) => {
-//     setPushs(notifcations);
-//   });
+  PushNotification.getDeliveredNotifications((notifcations) => {
+    setPushs(notifcations);
+  });
   useEffect(() => {
     setActiveAfish(false);
     setActiveProfile(false);
     setActiveNotifications(true);
     setTitle("Уведомления");
+    messaging()
+      .getInitialNotification()
+      .then((message) => {
+        console.log(message);
+      });
   }, []);
   return (
     <>
-      {pushs.length > 0 ?<ScrollView style={style.scroll}>
-        { pushs.map((push, index) => {
-          return (
-            <View key={index} style={style.container}>
-              <View style={style.item}>
-                <View style={style.wrapper}>
-                  <View style={style.itemText}>
-                    <View style={{}}>
-                      <Text style={style.subtitle}>
-                        {push.title}
-                      </Text>
-                      <Text style={style.title}>{push.body}</Text>
+      {pushs.length > 0 ? (
+        <ScrollView style={style.scroll}>
+          {pushs.map((push, index) => {
+            return (
+              <View key={index} style={style.container}>
+                <View style={style.item}>
+                  <View style={style.wrapper}>
+                    <View style={style.itemText}>
+                      <View style={{}}>
+                        <Text style={style.subtitle}>{push.title}</Text>
+                        <Text style={style.title}>{push.body}</Text>
+                      </View>
+                      {/* <Text style={style.date}>{poster.startsAt}</Text> */}
                     </View>
-                    {/* <Text style={style.date}>{poster.startsAt}</Text> */}
-                  </View>
-                  <View style={style.itemImgContainer}>
-                    <Image
-                      style={style.itemImg}
-                      source={{
-                        uri: push.group,
-                      }}
-                    />
+                    <View style={style.itemImgContainer}>
+                      <Image
+                        style={style.itemImg}
+                        source={{
+                          uri: push.group,
+                        }}
+                      />
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-          );
-        }) }
-      </ScrollView> : <View style={style.nonePush}><Text>Уведомления отсутствуют</Text></View>}
+            );
+          })}
+        </ScrollView>
+      ) : (
+        <View style={style.nonePush}>
+          <Text>Уведомления отсутствуют</Text>
+        </View>
+      )}
     </>
   );
   // return(

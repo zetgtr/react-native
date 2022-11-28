@@ -11,9 +11,9 @@ import style from "./menu.scss";
 const Menu = ({ count, activeProfile, activeAfish, activeNotifications }) => {
   const { auth } = useSelector(authSelector);
   const [pushs, setPushs] = useState([]);
-  // PushNotification.getDeliveredNotifications((notifcations) => {
-  //   setPushs(notifcations);
-  // });
+  PushNotification.getDeliveredNotifications((notifcations) => {
+    setPushs(notifcations);
+  });
 
   return (
     <View style={style.container}>
