@@ -23,29 +23,12 @@ const Router = () => {
   const [posterPage, setPosterPage] = useState(false);
   const [logout, setLogout] = useState(false);
   const [count, setCount] = useState(0);
+
+  const [activeAfish, setActiveAfish] = useState(false);
+  const [activeNotifications, setActiveNotifications] = useState(false);
+  const [activeProfile, setActiveProfile] = useState(false);
+
   const dicpatch = useDispatch();
-  // const navigate = useNavigate();
-  useEffect(() => {
-    const backAction = () => {
-      // navigate(-1);
-      // Alert.alert("Hold on!", "Are you sure you want to go back?", [
-      //   {
-      //     text: "Cancel",
-      //     onPress: () => null,
-      //     style: "cancel",
-      //   },
-      //   { text: "YES", onPress: () => BackHandler.exitApp() },
-      // ]);
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
   useEffect(() => {
     getPosters(dicpatch);
     getProfile(dicpatch);
@@ -70,6 +53,9 @@ const Router = () => {
             path={ROUTER.HOME}
             element={
               <Home
+                setActiveAfish={setActiveAfish}
+                setActiveNotifications={setActiveNotifications}
+                setActiveProfile={setActiveProfile}
                 setLogout={setLogout}
                 setBack={setBack}
                 setPosterPage={setPosterPage}
@@ -100,6 +86,9 @@ const Router = () => {
             path={ROUTER.PROFILE}
             element={
               <ProFile
+              setActiveAfish={setActiveAfish}
+              setActiveNotifications={setActiveNotifications}
+              setActiveProfile={setActiveProfile}
                 setPosterPage={setPosterPage}
                 setBack={setBack}
                 setPoster={setPoster}
@@ -113,6 +102,9 @@ const Router = () => {
             path={ROUTER.PUSH}
             element={
               <Push
+                setActiveAfish={setActiveAfish}
+                setActiveNotifications={setActiveNotifications}
+                setActiveProfile={setActiveProfile}
                 setPoster={setPoster}
                 setTitle={setTitle}
                 setCount={setCount}
@@ -126,10 +118,23 @@ const Router = () => {
           <Route
             exact
             path={ROUTER.AUTH}
-            element={<Auth setTitle={setTitle} setBack={setBack} />}
+            element={
+              <Auth
+                setActiveAfish={setActiveAfish}
+                setActiveNotifications={setActiveNotifications}
+                setActiveProfile={setActiveProfile}
+                setTitle={setTitle}
+                setBack={setBack}
+              />
+            }
           />
         </Routes>
-        <MenuApp count={count} />
+        <MenuApp
+          activeAfish={activeAfish}
+          activeNotifications={activeNotifications}
+          activeProfile={activeProfile}
+          count={count}
+        />
       </View>
     </NativeRouter>
   );

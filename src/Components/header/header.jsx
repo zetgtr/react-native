@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { BackHandler, Image, Text, TouchableOpacity, View } from "react-native";
 import style from "./header.scss";
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -7,6 +7,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { exitAuth, getProfile } from "../../API/api";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../Store/auth/selector";
+import { useEffect } from "react";
 
 const Header = ({ title, back , logout }) => {
   const navigate = useNavigate();
@@ -18,6 +19,31 @@ const Header = ({ title, back , logout }) => {
   const onChengeExit = () => {
     exitAuth(dicpatch, navigate);
   };
+
+   // const navigate = useNavigate();
+   useEffect(() => {
+    const backAction = () => {
+      // onChengeBack()
+      // Alert.alert("Hold on!", "Are you sure you want to go back?", [
+      //   {
+      //     text: "Cancel",
+      //     onPress: () => null,
+      //     style: "cancel",
+      //   },
+      //   { text: "YES", onPress: () => BackHandler.exitApp() },
+      // ]);
+      console.log();
+      navigate(-1)
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <View style={style.container}>

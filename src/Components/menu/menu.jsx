@@ -11,33 +11,12 @@ import style from "./menu.scss";
 
 
 
-const Menu = ({count}) => {
-  const [activeAfish, setActiveAfish] = useState(false)
-  const [activeNotifications, setActiveNotifications] = useState(false)
-  const [activeProfile, setActiveProfile] = useState(false)
-  
-  const onActiveAfish = () => {
-    setActiveAfish(true)
-    setActiveProfile(false)
-    setActiveNotifications(false)
-  }
-  const onActiveProfile = () => {
-    setActiveAfish(false)
-    setActiveProfile(true)
-    setActiveNotifications(false)
-  }
-  const onActiveNotifications = () => {
-    setActiveAfish(false)
-    setActiveProfile(false)
-    setActiveNotifications(true)
-  }
-
+const Menu = ({count, activeProfile , activeAfish, activeNotifications}) => {
   const {auth} = useSelector(authSelector)
   
   return(
   <View style={style.container}>
     <Link underlayColor to={ROUTER.HOME}
-      onPress={() => onActiveAfish()}
     >
       <>
       <Svg
@@ -58,7 +37,6 @@ const Menu = ({count}) => {
       </>
     </Link>
     <Link underlayColor to={ROUTER.PUSH}
-       onPress={() => onActiveNotifications()}
     >
       <View style={style.itemContainer}>
       <Svg
@@ -80,7 +58,6 @@ const Menu = ({count}) => {
       </View>
     </Link>
     <Link underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}
-       onPress={() => onActiveProfile()}
     >
       <>
       <Svg
