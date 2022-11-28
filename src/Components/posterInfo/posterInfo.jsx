@@ -60,12 +60,9 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout, history 
         showsHorizontalScrollIndicator={false}
         style={style.scrollContainer}
       >
+        
         <View style={style.container}>
-          <View
-            onLayout={(e) => onLayoutImg(e.nativeEvent.layout.width)}
-            style={style.boxPoster}
-          >
-            <View style={style.imgContainer}>
+        <View style={style.imgContainer}>
               <Image
                 source={{
                   uri: poster.photo,
@@ -73,6 +70,10 @@ const PosterInfo = ({ setTitle, setBack, poster, posterPage, setLogout, history 
                 style={style.img}
               />
             </View>
+          <View
+            onLayout={(e) => onLayoutImg(e.nativeEvent.layout.width)}
+            style={style.boxPoster}
+          >
             <Text style={style.textInfoHeader}>Информация</Text>
             <View style={style.infoBox}>
               <View style={style.info}>

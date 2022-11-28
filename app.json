@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mo-strelna",
+    "name": "МО Стрельна",
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [
@@ -13,10 +13,10 @@
     "slug": "mo-strelna",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/test.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -33,7 +33,7 @@
       "googleServicesFile" : "./google-services.json",
       "useNextNotificationsApi": true,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.jpg",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.jitouch.mostrelna"

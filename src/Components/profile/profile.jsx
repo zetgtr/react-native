@@ -20,52 +20,35 @@ export const ProFile = ({
   setHistory,
   setActiveAfish,
   setActiveNotifications,
-  setActiveProfile
+  setActiveProfile,
 }) => {
   const dicpatch = useDispatch();
   const [invitation, setInvitation] = useState(false);
   const [family, setFamily] = useState(false);
   const [rules, setRules] = useState(false);
-  const [value1, setValue1] = useState(118);
-  const [value2, setValue2] = useState(0);
-  const [value3, setValue3] = useState(234);
-  const [width, setWidth] = useState(0);
-  const [fadeAnim] = useState(useRef(new Animated.Value(0)).current);
-  const calculateBar = () => {
-    setValue1(width * 1);
-    setValue2(width * 0);
-    setValue3(width * 2);
-  };
-  const onLayoutMenu = (w) => {
-    setWidth(w);
-  };
 
   const onChangeInvitation = () => {
-    calculateBar();
     setInvitation(true);
     setFamily(false);
     setRules(false);
-    // setTitle('Мои приглашения')
   };
 
   const onChengeFamily = () => {
-    calculateBar();
     setHistory(false);
     setInvitation(false);
     setFamily(true);
     setRules(false);
   };
   const onChengeRules = () => {
-    calculateBar();
     setInvitation(false);
     setFamily(false);
     setRules(true);
   };
 
   useEffect(() => {
-    setActiveAfish(false)
-    setActiveProfile(true)
-    setActiveNotifications(false)
+    setActiveAfish(false);
+    setActiveProfile(true);
+    setActiveNotifications(false);
     setHistory(false);
     setInvitation(true);
     setPosterPage(false);
@@ -76,27 +59,6 @@ export const ProFile = ({
     !logout && setLogout(true);
   }, [dicpatch]);
 
-  const moveAnimated = () => {
-    Animated.timing(fadeAnim, {
-      toValue: value1,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
-  };
-  const backAnimated = () => {
-    Animated.timing(fadeAnim, {
-      toValue: value2,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
-  };
-  const endAnimated = () => {
-    Animated.timing(fadeAnim, {
-      toValue: value3,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
-  };
 
   return (
     <View disableScrollViewPanResponder={true} style={style.container}>
@@ -104,42 +66,34 @@ export const ProFile = ({
         <TouchableOpacity
           style={style.buttonHeader}
           onPress={() => {
-            backAnimated();
             onChangeInvitation();
           }}
         >
           <Text>Приглашения</Text>
+          <View style={invitation && style.band} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[style.buttonHeader]}
           onPress={() => {
-            moveAnimated();
             onChengeFamily();
-            // moveAnimated()
           }}
         >
           <Text>Члены семьи</Text>
+          <View style={family && style.band} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[style.buttonHeader]}
           onPress={() => {
-            // onChengeExit()
-            endAnimated();
             onChengeRules();
-            // moveAnimated()
           }}
         >
-          {/* <Text>Выйти</Text> */}
           <Text>Правила</Text>
+          <View style={rules && style.band} />
         </TouchableOpacity>
       </View>
       <View
         style={{ marginBottom: 5, overflowX: "hidden", marginHorizontal: 10 }}
       >
-        <Animated.View
-          style={[style.bar, { marginLeft: fadeAnim }]}
-          onLayout={(e) => onLayoutMenu(e.nativeEvent.layout.width)}
-        ></Animated.View>
       </View>
       {invitation && <Invitation setPoster={setPoster} setLogout={setLogout} />}
       {family && <Famaly />}

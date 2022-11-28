@@ -19,20 +19,8 @@ const Header = ({ title, back , logout }) => {
   const onChengeExit = () => {
     exitAuth(dicpatch, navigate);
   };
-
-   // const navigate = useNavigate();
    useEffect(() => {
     const backAction = () => {
-      // onChengeBack()
-      // Alert.alert("Hold on!", "Are you sure you want to go back?", [
-      //   {
-      //     text: "Cancel",
-      //     onPress: () => null,
-      //     style: "cancel",
-      //   },
-      //   { text: "YES", onPress: () => BackHandler.exitApp() },
-      // ]);
-      console.log();
       navigate(-1)
       return true;
     };
@@ -71,7 +59,7 @@ const Header = ({ title, back , logout }) => {
         </View>
       )}
       {auth && logout && (
-        <TouchableOpacity  style={[{color: '', position: 'absolute', top: 57, right: 15 }]}
+        <TouchableOpacity  style={[{color: '', position: 'absolute', top: 15, right: 15 }]}
         onPress={() => {
           onChengeExit()
         }}

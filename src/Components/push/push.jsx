@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import PushNotification from "react-native-push-notification";
-import { useSelector } from "react-redux";
-import { posterSelector } from "../../Store/poster/selector";
 import style from "./push.scss";
 
 const Push = ({
@@ -11,15 +9,11 @@ const Push = ({
   setActiveNotifications,
   setActiveProfile,
 }) => {
-  const [push, setPush] = useState();
-  const posters = useSelector(posterSelector);
-  console.log('====================================');
-    console.log(push);
-    console.log('====================================');
+  const [pushs, setPushs] = useState([]);
+//   PushNotification.getDeliveredNotifications((notifcations) => {
+//     setPushs(notifcations);
+//   });
   useEffect(() => {
-    PushNotification.getDeliveredNotifications((notifcations) => {
-      setPush(notifcations);
-    });
     setActiveAfish(false);
     setActiveProfile(false);
     setActiveNotifications(true);
@@ -27,26 +21,26 @@ const Push = ({
   }, []);
   return (
     <>
-      <ScrollView style={style.scroll}>
-        {posters.posters.map((poster) => {
+      {pushs.length > 0 ?<ScrollView style={style.scroll}>
+        { pushs.map((push, index) => {
           return (
-            <View key={poster.id} style={style.container}>
+            <View key={index} style={style.container}>
               <View style={style.item}>
                 <View style={style.wrapper}>
                   <View style={style.itemText}>
                     <View style={{}}>
                       <Text style={style.subtitle}>
-                        Появилось новое мероприятие
+                        {push.title}
                       </Text>
-                      <Text style={style.title}>{poster.title}</Text>
+                      <Text style={style.title}>{push.body}</Text>
                     </View>
-                    <Text style={style.date}>{poster.startsAt}</Text>
+                    {/* <Text style={style.date}>{poster.startsAt}</Text> */}
                   </View>
                   <View style={style.itemImgContainer}>
                     <Image
                       style={style.itemImg}
                       source={{
-                        uri: poster.photo,
+                        uri: push.group,
                       }}
                     />
                   </View>
@@ -54,8 +48,8 @@ const Push = ({
               </View>
             </View>
           );
-        })}
-      </ScrollView>
+        }) }
+      </ScrollView> : <View style={style.nonePush}><Text>Уведомления отсутствуют</Text></View>}
     </>
   );
   // return(
