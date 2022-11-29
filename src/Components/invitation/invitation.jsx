@@ -7,28 +7,36 @@ import {
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useState } from "react";
-import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-native";
-import { getPosters, getProfile } from "../../API/api";
+import { Link, useNavigate } from "react-router-native";
+import { getPoster, getPosters, getProfile } from "../../API/api";
 import { ROUTER } from "../../Router/constants";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
 import { imgPoster } from "../utils";
 
-const Invitation = ({ setPoster,setLogout }) => {
+const Invitation = ({ setPoster, setLogout }) => {
   const { invites } = useSelector(profileSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
   const [sizeIcon] = useState(11);
   const [refresh, setRefresh] = useState(false);
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChengeRefresh = () => {
     setRefresh(true);
-    getPosters(dicpatch);
-    getProfile(dicpatch);
+    getPosters(dispatch);
+    getProfile(dispatch);
     setTimeout(() => {
       setRefresh(false);
     }, 1000);
@@ -39,23 +47,26 @@ const Invitation = ({ setPoster,setLogout }) => {
   };
   useEffect(() => {
     imgPoster(invites, widthImg, setStyleImg, styleImg, setLoading);
-    // setLogout(false);
   }, [invites, widthImg]);
   if (loading) return <></>;
   return (
-    <ScrollView refreshControl={
-      <RefreshControl
-        onRefresh={() => onChengeRefresh()}
-        refreshing={refresh}
-      />} >
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          onRefresh={() => onChengeRefresh()}
+          refreshing={refresh}
+        />
+      }
+    >
       <View style={style.container}>
         {invites.map((poster) => (
-          <Link
+          <TouchableOpacity
             key={poster.classImg}
-            onPress={() => {setLogout(false); setPoster(poster)}}
+            onPress={() => {
+              setLogout(false);
+              getPoster(poster.event, dispatch, navigate);
+            }}
             style={style.posterContainer}
-            underlayColor
-            to={ROUTER.POSTER}
           >
             <View style={style.posterContainer}>
               <Text style={style.title}>{poster.title}</Text>
@@ -147,7 +158,7 @@ const Invitation = ({ setPoster,setLogout }) => {
                 </View>
               </View>
             </View>
-          </Link>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>

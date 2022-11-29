@@ -1,7 +1,8 @@
-import { GET_ALL_POSTERS_ACTION, SET_ALL_POSTER_ACTION } from "./constants";
+import { SET_POSTER_ACTION, SET_ALL_POSTER_ACTION } from "./constants";
 
-export const getAllPostersAction = () => ({
-  type: GET_ALL_POSTERS_ACTION,
+export const setPosterAction = (payload) => ({
+  type: SET_POSTER_ACTION,
+  payload,
 });
 
 export const setAllPostersAction = (payload) => ({

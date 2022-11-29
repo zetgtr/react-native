@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -13,10 +20,9 @@ import {
 
 import { posterSelector } from "../../Store/poster/selector";
 import style from "./poster.scss";
-import { Link } from "react-router-native";
-import { ROUTER } from "../../Router/constants";
+import { useNavigate } from "react-router-native";
 import { imgPoster } from "../utils";
-import { getPosters, getProfile } from "../../API/api";
+import { getPoster, getPosters, getProfile } from "../../API/api";
 import { ActivityIndicator } from "@react-native-material/core";
 
 const Poster = ({ setPoster, setPosterPage }) => {
@@ -26,12 +32,13 @@ const Poster = ({ setPoster, setPosterPage }) => {
   const [widthImg, setWidthImg] = useState(160);
   const [sizeIcon] = useState(11);
   const [refresh, setRefresh] = useState(false);
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChengeRefresh = () => {
     setRefresh(true);
-    getPosters(dicpatch);
-    getProfile(dicpatch);
+    getPosters(dispatch);
+    getProfile(dispatch);
     setTimeout(() => {
       setRefresh(false);
     }, 1000);
@@ -39,10 +46,6 @@ const Poster = ({ setPoster, setPosterPage }) => {
 
   const onLayoutImg = (widthImg) => {
     setWidthImg(widthImg);
-  };
-
-  const onScrollChenge = (contentWidth, contentHeight) => {
-    console.log(contentWidth, contentHeight);
   };
 
   useEffect(() => {
@@ -56,7 +59,6 @@ const Poster = ({ setPoster, setPosterPage }) => {
     );
   return (
     <ScrollView
-      // onScrollToTop={(e) => console.log(e.nativeEvent.contentOffset.y)}
       refreshControl={
         <RefreshControl
           onRefresh={() => onChengeRefresh()}
@@ -68,15 +70,12 @@ const Poster = ({ setPoster, setPosterPage }) => {
       <View style={style.container}>
         {posters.posters.map((poster) => {
           return (
-            <Link
+            <TouchableOpacity
               key={poster.classImg}
               onPress={() => {
-                setPoster(poster);
-                setPosterPage(true);
+                getPoster(poster.event, dispatch, navigate);
               }}
               style={style.posterContainer}
-              underlayColor
-              to={ROUTER.POSTER}
             >
               <View style={style.posterContainer}>
                 <Text style={style.title}>{poster.title}</Text>
@@ -179,7 +178,7 @@ const Poster = ({ setPoster, setPosterPage }) => {
                   </View>
                 </View>
               </View>
-            </Link>
+            </TouchableOpacity>
           );
         })}
       </View>

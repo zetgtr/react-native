@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ROUTER } from "../Router/constants";
 import { setAuthAction } from "../Store/auth/actions";
-import { setAllPostersAction } from "../Store/poster/actions";
+import { setAllPostersAction, setPosterAction } from "../Store/poster/actions";
 import { setAllProfileAction } from "../Store/profile/actions";
 import { date, dateTime } from "./utils";
 
@@ -14,30 +14,27 @@ function api(url, fun) {
     });
 }
 
-function setDataPoster(res) {
-  let posters = [];
-  res?.map((element, index) => {
-    posters[index] = {
-      title: element.title,
-      description: element.description,
-      tickets: element.tickets,
-      place: element.place,
-      startsAt: date(element.startsAt),
-      stamp: element.startsAt,
-      timeStartAt: dateTime(element.startsAt),
-      active: element.active,
-      timeEndsAt: dateTime(element.endsAt),
-      forCitizens: element.forCitizens,
-      id: element.id,
-      limitation: element.limitation,
-      regEndsAt: date(element.regEndsAt),
-      regStartsAt: date(element.regStartsAt),
-      availableTickets: element.availableTickets,
-      photo: "https://mo-strelna.ru/" + element.photo,
-      classImg: "img" + index,
-    };
-  });
-  return posters;
+function setDataPoster(element, index = 0) {
+  return {
+    event: element.event,
+    title: element.title,
+    description: element.description,
+    tickets: element.tickets,
+    place: element.place,
+    startsAt: date(element.startsAt),
+    stamp: element.startsAt,
+    timeStartAt: dateTime(element.startsAt),
+    active: element.active,
+    timeEndsAt: dateTime(element.endsAt),
+    forCitizens: element.forCitizens,
+    id: element.id,
+    limitation: element.limitation,
+    regEndsAt: date(element.regEndsAt),
+    regStartsAt: date(element.regStartsAt),
+    availableTickets: element.availableTickets,
+    photo: "https://mo-strelna.ru/" + element.photo,
+    classImg: "img" + index,
+  };
 }
 
 function setFamilys(res) {
@@ -61,7 +58,11 @@ function setFamilys(res) {
 
 export const getPosters = (dispatch) => {
   api("https://mo-strelna.ru/mobile/mobile.php?type=get_all_poster", (res) => {
-    dispatch(setAllPostersAction(setDataPoster(res.data)));
+    let posters = [];
+    res?.data?.map((element, index) => {
+      posters[index] = setDataPoster(element, index);
+    });
+    dispatch(setAllPostersAction(posters));
   });
 };
 
@@ -106,9 +107,13 @@ export const exitAuth = (dispatch, navigate) => {
 
 export const getProfile = (dispatch) => {
   api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`, (res) => {
+    let posters = [];
+    res?.data?.invites?.map((element, index) => {
+      posters[index] = setDataPoster(element, index);
+    });
     dispatch(
       setAllProfileAction({
-        invites: setDataPoster(res.data.invites),
+        invites: posters,
         familys: setFamilys(res.data.familys),
       })
     );
@@ -130,6 +135,18 @@ export const setToken = (token) => {
     `https://mo-strelna.ru/mobile/mobile.php?type=set_token&token=${token}`,
     (res) => {
       console.log(res.data);
+    }
+  );
+};
+
+export const getPoster = (event, dispatch, navigate) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=get_poster&event=${event}`,
+    (res) => {
+      if (res.data) {
+        dispatch(setPosterAction(setDataPoster(res.data)));
+        navigate(ROUTER.POSTER);
+      }
     }
   );
 };

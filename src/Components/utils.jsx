@@ -45,8 +45,13 @@ export const getPushFirebase = async (dispatch) => {
   await database()
     .ref("token")
     .child(auth().currentUser.uid)
-    .child("massage")
+    .child("message")
     .on("value", (snapshot) => {
-        dispatch(setAllPushAction({"key": Object.values(snapshot)[0].childKeys, "pushs": Object.values(snapshot)[0].value}));
+      dispatch(
+        setAllPushAction({
+          key: Object.values(snapshot)[0].childKeys,
+          pushs: Object.values(snapshot)[0].value,
+        })
+      );
     });
 };

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import style from "./push.scss";
 import { useSelector } from "react-redux";
 import { pushSelector } from "../../Store/push/selector";
 import PushNotification from "react-native-push-notification";
+import { getPoster } from "../../API/api";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-native";
 
 const Push = ({
   setTitle,
@@ -13,6 +16,12 @@ const Push = ({
 }) => {
   const [newPushs, setNewPushs] = useState([]);
   const { pushs, pushKeys } = useSelector(pushSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onChengeEvent = (event) => {
+    getPoster(event, dispatch, navigate);
+  };
 
   useEffect(() => {
     PushNotification.getDeliveredNotifications((notifcations) => {
@@ -33,31 +42,40 @@ const Push = ({
             .reverse()
             .map((key) => {
               return (
-                <View key={key} style={style.container}>
-                  <View style={style.item}>
-                    <View style={style.wrapper}>
-                      <View style={style.itemText}>
-                        <View style={{}}>
-                          <Text style={style.subtitle}>
-                            {pushs[key]?.notification?.title}
-                          </Text>
-                          <Text style={style.title}>
-                            {pushs[key]?.notification?.body}
+                <TouchableOpacity
+                  key={key}
+                  onPress={() => {
+                    onChengeEvent(pushs[key]?.data?.event);
+                  }}
+                >
+                  <View style={style.container}>
+                    <View style={style.item}>
+                      <View style={style.wrapper}>
+                        <View style={style.itemText}>
+                          <View>
+                            <Text style={style.subtitle}>
+                              {pushs[key]?.notification?.title}
+                            </Text>
+                            <Text style={style.title}>
+                              {pushs[key]?.notification?.body}
+                            </Text>
+                          </View>
+                          <Text style={style.date}>
+                            {pushs[key]?.data.date}
                           </Text>
                         </View>
-                        <Text style={style.date}>{pushs[key]?.data.date}</Text>
-                      </View>
-                      <View style={style.itemImgContainer}>
-                        <Image
-                          style={style.itemImg}
-                          source={{
-                            uri: pushs[key]?.notification.android?.imageUrl,
-                          }}
-                        />
+                        <View style={style.itemImgContainer}>
+                          <Image
+                            style={style.itemImg}
+                            source={{
+                              uri: pushs[key]?.notification.android?.imageUrl,
+                            }}
+                          />
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               );
             })}
         </ScrollView>
@@ -68,42 +86,6 @@ const Push = ({
       )}
     </>
   );
-  // return(
-
-  //     <>
-  //     <ScrollView
-  //         style={style.scroll}
-  //     >
-  //         <View style={style.container}>
-  //             <View style={style.item}>
-  //                 <View style={style.wrapper}>
-  //                     <View style={style.itemText}>
-  //                         <View style={{}}>
-  //                             <Text style={style.subtitle}>
-  //                                 Появилось новое мероприятие
-  //                             </Text>
-  //                             <Text style={style.title}>
-  //                                 КИНОЛЕКТОРИЙ ВО ЛЬВОВСКОМ ДВОРЦЕ. «НЕЗАВИСИМЫЕ»
-  //                             </Text>
-  //                         </View>
-  //                         <Text style={style.date}>
-  //                             12.04.2000
-  //                         </Text>
-  //                     </View>
-  //                     <View style={style.itemImgContainer}>
-  //                         <Image
-  //                             style={style.itemImg}
-  //                             source={
-  //                                 require('./../../../img/1668771371.jpg')
-  //                             }
-  //                         />
-  //                     </View>
-  //                 </View>
-  //             </View>
-  //         </View>
-  //     </ScrollView>
-  //   </>
-  // );
 };
 
 export default Push;

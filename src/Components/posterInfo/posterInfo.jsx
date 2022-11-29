@@ -24,13 +24,15 @@ import { userValidation } from "../utils";
 import { profileSelector } from "../../Store/profile/selector";
 import { ROUTER } from "../../Router/constants";
 import { useNavigate } from "react-router-native";
+import { posterSelector } from "../../Store/poster/selector";
 
-const PosterInfo = ({ setTitle, poster, posterPage, history }) => {
+const PosterInfo = ({ setTitle, posterPage, history }) => {
   const [render, setRender] = useState(false);
   const [invitationButton, setInvitationButton] = useState(false);
   const [sizeIcon] = useState(11);
   const { auth } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
+  const { poster } = useSelector(posterSelector);
   const navigate = useNavigate();
 
   const onLayoutImg = (widthImg) => {
@@ -48,9 +50,9 @@ const PosterInfo = ({ setTitle, poster, posterPage, history }) => {
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   useEffect(() => {
-  //   // setLogout(setLogout)
+    //   // setLogout(setLogout)
     setInvitationButton(userValidation(familys[0], auth, poster));
-    history ? setTitle("Мероприятие") : setTitle("Мое приглашение")
+    history ? setTitle("Мероприятие") : setTitle("Мое приглашение");
     // setBack(true);
   }, []);
 
@@ -60,16 +62,15 @@ const PosterInfo = ({ setTitle, poster, posterPage, history }) => {
         showsHorizontalScrollIndicator={false}
         style={style.scrollContainer}
       >
-        
         <View style={style.container}>
-        <View style={style.imgContainer}>
-              <Image
-                source={{
-                  uri: poster.photo,
-                }}
-                style={style.img}
-              />
-            </View>
+          <View style={style.imgContainer}>
+            <Image
+              source={{
+                uri: poster.photo,
+              }}
+              style={style.img}
+            />
+          </View>
           <View
             onLayout={(e) => onLayoutImg(e.nativeEvent.layout.width)}
             style={style.boxPoster}
