@@ -19,7 +19,7 @@
 }
 
 .box{
-    padding: 40px 20px;
+    padding: 40px 20px 20px 20px;
     border-radius: 10px;
     background: #ffffff;
     width: 90%;
@@ -52,8 +52,8 @@
     flex-direction: row;
     width: 100%;
     padding: 10px;
-    margin: 12px;
-    height: 40px;
+    margin-top: 12px;
+    height: 48px;
     justify-content: center;
 }
 .iconButton{
@@ -61,14 +61,17 @@
 }
 .iconButtonBlue{
     color: #fff;
-
+}
+.restore{
+    padding: 15px;
+    // border: 1px solid;
 }
 .buttonBlue{
     flex-direction: row;
     width: 100%;
     padding: 10px;
     margin: 12px;
-    height: 40px;
+    height: 48px;
     justify-content: center;
     border:1px solid transparent;
     background: #3c52a6;

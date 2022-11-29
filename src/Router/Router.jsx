@@ -14,7 +14,6 @@ import { Auth } from "../Components/auth/auth";
 import { ProFile } from "../Components/profile/profile";
 import { InvitationPage } from "../Components/invitationPage/invitationPage";
 import auth from "@react-native-firebase/auth";
-import messaging from "@react-native-firebase/messaging";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
@@ -30,29 +29,20 @@ const Router = () => {
   const [activeNotifications, setActiveNotifications] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
 
-  const onAuthStateChanged = (user) => {
-    console.log("user:", user);
-  };
+  // useEffect(() => {
+  //   auth()
+  //     .signInAnonymously()
+  //     .then(() => {
+  //       console.log("User signed in anonymously");
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === "auth/operation-not-allowed") {
+  //         console.log("Enable anonymous in your firebase console.");
+  //       }
 
-  useEffect(() => {
-    auth()
-      .signInAnonymously()
-      .then(() => {
-        console.log("User signed in anonymously");
-      })
-      .catch((error) => {
-        if (error.code === "auth/operation-not-allowed") {
-          console.log("Enable anonymous in your firebase console.");
-        }
-
-        console.error(error);
-      });
-  }, []);
-
-  const getToken = async () => {
-    const token = await messaging().getToken();
-    return token;
-  };
+  //       console.error(error);
+  //     });
+  // }, []);
 
   const dicpatch = useDispatch();
   useEffect(() => {

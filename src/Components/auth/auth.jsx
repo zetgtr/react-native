@@ -139,7 +139,7 @@ export const Auth = ({
                 >
                   <Text>Регистрация</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => onRestorePassword()}>
+                <TouchableOpacity style={style.restore} onPress={() => onRestorePassword()}>
                   <Text style={{ color: "#3c52a6", marginTop: 0 }}>
                     Восстановление пароля
                   </Text>
@@ -156,9 +156,9 @@ export const Auth = ({
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 48,
     width: "100%",
-    margin: 12,
+    margin: 8,
     borderWidth: 1,
     padding: 10,
     borderColor: "#ced4da",

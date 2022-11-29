@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import messaging from "@react-native-firebase/messaging";
 import Router from "./src/Router/Router.jsx";
 import { store } from "./src/Store/index.jsx";
 import { Provider } from "react-redux";
 import PushNotification from "react-native-push-notification";
 import { StatusBar } from "react-native";
-import database from "@react-native-firebase/database";
+import database, { firebase } from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
 
 export default function App() {
-  const getPushData = async (massage) => {
+  const getPushData = (massage) => {
     console.log(massage);
     const id = auth().currentUser.uid;
-    database("token").ref(id).child("massage").set(massage);
+    const app = firebase.app();
+    database(app).ref("token").child(id).child("massage").push(massage);
     PushNotification.localNotification({
       message: massage.notification.body,
       title: massage.notification.title,
@@ -25,6 +26,21 @@ export default function App() {
 
   messaging().onMessage(getPushData);
   messaging().setBackgroundMessageHandler(getPushData);
+
+  useEffect(() => {
+    auth()
+      .signInAnonymously()
+      .then(() => {
+        console.log("User signed in anonymously");
+      })
+      .catch((error) => {
+        if (error.code === "auth/operation-not-allowed") {
+          console.log("Enable anonymous in your firebase console.");
+        }
+
+        console.error(error);
+      });
+  }, []);
 
   // const getToken = async () => {
   //   const token = await messaging().getToken();

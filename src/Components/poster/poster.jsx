@@ -17,6 +17,7 @@ import { Link } from "react-router-native";
 import { ROUTER } from "../../Router/constants";
 import { imgPoster } from "../utils";
 import { getPosters, getProfile } from "../../API/api";
+import { ActivityIndicator } from "@react-native-material/core";
 
 const Poster = ({ setPoster, setPosterPage }) => {
   const posters = useSelector(posterSelector);
@@ -47,7 +48,7 @@ const Poster = ({ setPoster, setPosterPage }) => {
   useEffect(() => {
     imgPoster(posters?.posters, widthImg, setStyleImg, styleImg, setLoading);
   }, [posters, widthImg]);
-  if (posters.loading || loading) return <></>;
+  if (posters.loading || loading) return <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}><ActivityIndicator size="large" color="#4f68c8" /></View>;
   return (
     <ScrollView
       // onScrollToTop={(e) => console.log(e.nativeEvent.contentOffset.y)}

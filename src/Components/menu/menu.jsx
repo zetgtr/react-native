@@ -11,13 +11,16 @@ import style from "./menu.scss";
 const Menu = ({ count, activeProfile, activeAfish, activeNotifications }) => {
   const { auth } = useSelector(authSelector);
   const [pushs, setPushs] = useState([]);
-  PushNotification.getDeliveredNotifications((notifcations) => {
-    setPushs(notifcations);
-  });
+  useEffect(()=>{
+    PushNotification.getDeliveredNotifications((notifcations) => {
+      setPushs(notifcations);
+    });
+  },[])
+ 
 
   return (
     <View style={style.container}>
-      <Link underlayColor to={ROUTER.HOME}>
+      <Link style={style.link} underlayColor to={ROUTER.HOME}>
         <>
           <Svg
             style={style.svg}
@@ -38,7 +41,7 @@ const Menu = ({ count, activeProfile, activeAfish, activeNotifications }) => {
           </Text>
         </>
       </Link>
-      <Link underlayColor to={ROUTER.PUSH}>
+      <Link style={style.link} underlayColor to={ROUTER.PUSH}>
         <View style={style.itemContainer}>
           <Svg
             style={style.svg}
@@ -76,7 +79,7 @@ const Menu = ({ count, activeProfile, activeAfish, activeNotifications }) => {
           )}
         </View>
       </Link>
-      <Link underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}>
+      <Link style={style.link} underlayColor to={auth ? ROUTER.PROFILE : ROUTER.AUTH}>
         <>
           <Svg
             style={style.svg}
