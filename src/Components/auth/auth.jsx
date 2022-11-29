@@ -36,8 +36,10 @@ export const Auth = ({
   const dispatch = useDispatch();
   const { auth } = useSelector(authSelector);
   const onPressAuth = () => {
-    setLoading(true);
     signIn(login, password, setError, dispatch, navigate, setLoading);
+    setTimeout(()=>{
+      setError(false)
+    },3000)
   };
   // const onLayoutGetHigth = (height) => {
   //   style.container = {
@@ -93,7 +95,7 @@ export const Auth = ({
                     style={{
                       backgroundColor: "#de0000",
                       padding: 10,
-                      borderRadius: "5",
+                      borderRadius: 5,
                       overflow: "hidden",
                       color: "#fff",
                       width: "100%",
