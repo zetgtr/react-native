@@ -1,4 +1,7 @@
 import { Image } from "react-native";
+import { setAllPushAction } from "../Store/push/actions";
+import database from "@react-native-firebase/database";
+import auth from "@react-native-firebase/auth";
 
 export const imgPoster = (
   posters,
@@ -36,4 +39,14 @@ export const userValidation = (user, auth, poster) => {
     }
   }
   return invates;
+};
+
+export const getPushFirebase = async (dispatch) => {
+  await database()
+    .ref("token")
+    .child(auth().currentUser.uid)
+    .child("massage")
+    .on("value", (snapshot) => {
+        dispatch(setAllPushAction({"key": Object.values(snapshot)[0].childKeys, "pushs": Object.values(snapshot)[0].value}));
+    });
 };

@@ -31,7 +31,7 @@ export const InvitationPage = ({ poster }) => {
           <Text style={style.subtitle}>КТО ПОЙДЁТ?</Text>
           <Text style={{fontSize: 10, marginTop: 5, marginBottom: 5}}>Пожалуйста, отметьте, на кого оформить приглашение.</Text>
         </View>
-        { error && <Text style={{backgroundColor: '#de0000', padding: 10, borderRadius: "5",overflow: 'hidden', color: '#fff', width: '90%', textAlign: 'center',fontSize:'10px'}}>{error}</Text>}
+        { error && <Text style={{backgroundColor: '#de0000', padding: 10, borderRadius: "5",overflow: 'hidden', color: '#fff', width: '90%', textAlign: 'center',fontSize: 10}}>{error}</Text>}
         <Famaly
           invitation={true}
           members={members}

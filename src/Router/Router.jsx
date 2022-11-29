@@ -13,7 +13,7 @@ import Home from "../Components/home/home";
 import { Auth } from "../Components/auth/auth";
 import { ProFile } from "../Components/profile/profile";
 import { InvitationPage } from "../Components/invitationPage/invitationPage";
-import auth from "@react-native-firebase/auth";
+import { getPushFirebase } from "../Components/utils";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
@@ -24,34 +24,18 @@ const Router = () => {
   const [posterPage, setPosterPage] = useState(false);
   const [logout, setLogout] = useState(false);
   const [count, setCount] = useState(0);
-
   const [activeAfish, setActiveAfish] = useState(false);
   const [activeNotifications, setActiveNotifications] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
 
-  // useEffect(() => {
-  //   auth()
-  //     .signInAnonymously()
-  //     .then(() => {
-  //       console.log("User signed in anonymously");
-  //     })
-  //     .catch((error) => {
-  //       if (error.code === "auth/operation-not-allowed") {
-  //         console.log("Enable anonymous in your firebase console.");
-  //       }
-
-  //       console.error(error);
-  //     });
-  // }, []);
-
-  const dicpatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
-    // const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-    getPosters(dicpatch);
-    getProfile(dicpatch);
-    getAuth(dicpatch);
+    getPushFirebase(dispatch);
+    getPosters(dispatch);
+    getProfile(dispatch);
+    getAuth(dispatch);
     setCount(11);
-  }, [dicpatch]);
+  }, [dispatch]);
   return (
     <NativeRouter>
       <View style={style.container}>

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
-import PushNotification from "react-native-push-notification";
-import messaging from "@react-native-firebase/messaging";
 import style from "./push.scss";
-import database from "@react-native-firebase/database";
-import auth from "@react-native-firebase/auth";
-import { date } from "../../API/utils";
+import { useSelector } from "react-redux";
+import { pushSelector } from "../../Store/push/selector";
+import PushNotification from "react-native-push-notification";
 
 const Push = ({
   setTitle,
@@ -13,44 +11,27 @@ const Push = ({
   setActiveNotifications,
   setActiveProfile,
 }) => {
-  // const [newPushs, setNewPushs] = useState([]);
-  const [pushs, setPushs] = useState([]);
-  const [keys, setKeys] = useState()
-  const [idUser] = useState(auth().currentUser.uid);
+  const [newPushs, setNewPushs] = useState([]);
+  const { pushs, pushKeys } = useSelector(pushSelector);
 
-
-  // PushNotification.getDeliveredNotifications((notifcations) => {
-  //   setNewPushs(notifcations);
-  // });
-
-  const getPushFirebase = async () => {
-    await database()
-      .ref("token")
-      .child(idUser)
-      .child("massage")
-      .on("value", (snapshot) => {
-        setPushs([]);
-          setKeys(Object.values(snapshot)[0].childKeys);
-          setPushs(Object.values(snapshot)[0].value)
-      });
-  };
   useEffect(() => {
-    getPushFirebase();
+    PushNotification.getDeliveredNotifications((notifcations) => {
+      setNewPushs(notifcations);
+    });
+    PushNotification.removeAllDeliveredNotifications();
     setActiveAfish(false);
     setActiveProfile(false);
     setActiveNotifications(true);
     setTitle("Уведомления");
-    messaging()
-      .getInitialNotification()
-      .then((message) => {
-        console.log(message);
-      });
   }, []);
   return (
     <>
-      {keys?.length > 0 ? (
+      {pushKeys?.length > 0 ? (
         <ScrollView style={style.scroll}>
-          {keys?.slice(0).reverse().map((key) => {
+          {pushKeys
+            ?.slice(0)
+            .reverse()
+            .map((key) => {
               return (
                 <View key={key} style={style.container}>
                   <View style={style.item}>
@@ -78,7 +59,7 @@ const Push = ({
                   </View>
                 </View>
               );
-          })}
+            })}
         </ScrollView>
       ) : (
         <View style={style.nonePush}>

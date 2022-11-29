@@ -9,17 +9,17 @@ import database, { firebase } from "@react-native-firebase/database";
 import auth from "@react-native-firebase/auth";
 
 export default function App() {
-  const getPushData = (massage) => {
-    console.log(massage);
+  const getPushData = (message) => {
+    console.log(message);
     const id = auth().currentUser.uid;
     const app = firebase.app();
-    database(app).ref("token").child(id).child("massage").push(massage);
+    database(app).ref("token").child(id).child("message").push(message);
     PushNotification.localNotification({
-      message: massage.notification.body,
-      title: massage.notification.title,
-      when: massage.sentTime,
-      group: massage.notification.android.imageUrl,
-      largeIconUrl: massage.notification.android.imageUrl,
+      message: message.notification.body,
+      title: message.notification.title,
+      when: message.sentTime,
+      tag: message.data.event,
+      largeIconUrl: message.notification.android.imageUrl,
       channelId: "channel-id",
     });
   };

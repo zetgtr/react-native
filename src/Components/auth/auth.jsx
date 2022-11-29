@@ -98,7 +98,7 @@ export const Auth = ({
                       color: "#fff",
                       width: "100%",
                       textAlign: "center",
-                      fontSize: "10px",
+                      fontSize: 10,
                     }}
                   >
                     {error}

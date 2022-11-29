@@ -1,0 +1,1 @@
+export const pushSelector = (state) => state.push;
