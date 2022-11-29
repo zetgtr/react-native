@@ -112,6 +112,7 @@ export const Auth = ({
                   onChangeText={onChangeLogin}
                   value={login}
                   placeholder="Логин или Email"
+                  placeholderTextColor="#808080" 
                 />
                 <TextInput
                   autoComplete={"password"}
@@ -119,6 +120,7 @@ export const Auth = ({
                   onChangeText={onChangePassword}
                   value={password}
                   placeholder="Пароль"
+                  placeholderTextColor="#808080" 
                   secureTextEntry={true}
                 />
                 <TouchableHighlight
