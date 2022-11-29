@@ -129,7 +129,7 @@ export const Auth = ({
                       icon={faSignInAlt}
                       style={[style.iconButton, style.iconButtonBlue]}
                     />
-                    <Text style={{ color: "#fff" }}>Войти</Text>
+                    <Text style={{ color: "#fff", marginTop: 2 }}>Войти</Text>
                   </>
                 </TouchableHighlight>
 

@@ -11,7 +11,7 @@
       ]
     },
     "slug": "mo-strelna",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/splash.png",
     "userInterfaceStyle": "light",
