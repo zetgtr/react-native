@@ -109,6 +109,7 @@ const Router = () => {
                 setPoster={setPoster}
                 setTitle={setTitle}
                 setCount={setCount}
+                setLogout={setLogout}
               />
             }
           />

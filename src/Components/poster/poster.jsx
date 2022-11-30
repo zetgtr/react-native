@@ -24,8 +24,10 @@ import { useNavigate } from "react-router-native";
 import { imgPoster } from "../utils";
 import { getPoster, getPosters, getProfile } from "../../API/api";
 import { ActivityIndicator } from "@react-native-material/core";
+import { loadingPosterAction } from "../../Store/poster/actions";
+import { ROUTER } from "../../Router/constants";
 
-const Poster = ({ setPoster, setPosterPage }) => {
+const Poster = () => {
   const posters = useSelector(posterSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,6 +75,8 @@ const Poster = ({ setPoster, setPosterPage }) => {
             <TouchableOpacity
               key={poster.classImg}
               onPress={() => {
+                dispatch(loadingPosterAction(true))
+                navigate(ROUTER.POSTER);
                 getPoster(poster.event, dispatch, navigate);
               }}
               style={style.posterContainer}

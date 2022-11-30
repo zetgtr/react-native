@@ -1,9 +1,9 @@
 import axios from "axios";
 import { ROUTER } from "../Router/constants";
 import { setAuthAction } from "../Store/auth/actions";
-import { setAllPostersAction, setPosterAction } from "../Store/poster/actions";
+import { loadingPosterAction, setAllPostersAction, setPosterAction } from "../Store/poster/actions";
 import { setAllProfileAction } from "../Store/profile/actions";
-import { date, dateTime } from "./utils";
+import { date, dateTime, removeTags } from "./utils";
 
 function api(url, fun) {
   axios
@@ -18,7 +18,7 @@ function setDataPoster(element, index = 0) {
   return {
     event: element.event,
     title: element.title,
-    description: element.description,
+    description: removeTags(element.description),
     tickets: element.tickets,
     place: element.place,
     startsAt: date(element.startsAt),
@@ -108,7 +108,7 @@ export const exitAuth = (dispatch, navigate) => {
 export const getProfile = (dispatch) => {
   api(`https://mo-strelna.ru/mobile/mobile.php?type=profile`, (res) => {
     let posters = [];
-    res?.data?.invites?.map((element, index) => {
+    res?.data?.invites && res?.data?.invites?.map((element, index) => {
       posters[index] = setDataPoster(element, index);
     });
     dispatch(
@@ -139,13 +139,25 @@ export const setToken = (token) => {
   );
 };
 
-export const getPoster = (event, dispatch, navigate) => {
+export const getPoster = (event, dispatch, navigate, Alert = null) => {
   api(
     `https://mo-strelna.ru/mobile/mobile.php?type=get_poster&event=${event}`,
     (res) => {
-      if (res.data) {
-        dispatch(setPosterAction(setDataPoster(res.data)));
-        navigate(ROUTER.POSTER);
+      if (res.data.event) {
+        dispatch(setPosterAction(setDataPoster(res.data)))
+        dispatch(loadingPosterAction(false))
+      }else{
+        Alert.alert(
+          "Ошибка",
+          "Данное мероприятие не найдено!",
+          [
+            {
+              text: "Закрыть",
+              onPress: () => {navigate(-1), dispatch(loadingPosterAction(false))},
+              style: "cancel"
+            },
+          ]
+        );
       }
     }
   );

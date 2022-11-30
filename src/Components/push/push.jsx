@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import style from "./push.scss";
 import { useSelector } from "react-redux";
 import { pushSelector } from "../../Store/push/selector";
@@ -7,12 +7,15 @@ import PushNotification from "react-native-push-notification";
 import { getPoster } from "../../API/api";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-native";
+import { loadingPosterAction } from "../../Store/poster/actions";
+import { ROUTER } from "../../Router/constants";
 
 const Push = ({
   setTitle,
   setActiveAfish,
   setActiveNotifications,
   setActiveProfile,
+  setLogout
 }) => {
   const [newPushs, setNewPushs] = useState([]);
   const { pushs, pushKeys } = useSelector(pushSelector);
@@ -20,10 +23,13 @@ const Push = ({
   const navigate = useNavigate();
 
   const onChengeEvent = (event) => {
-    getPoster(event, dispatch, navigate);
+    dispatch(loadingPosterAction(true))
+    navigate(ROUTER.POSTER);
+    getPoster(event, dispatch, navigate, Alert);
   };
 
   useEffect(() => {
+    setLogout(false);
     PushNotification.getDeliveredNotifications((notifcations) => {
       setNewPushs(notifcations);
     });

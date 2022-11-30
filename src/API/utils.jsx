@@ -56,3 +56,8 @@ export const dateTime = (dateStamp) => {
     ("0" + dateSecond.getMinutes()).slice(-2)
   );
 };
+
+export const removeTags = (html) =>
+ {
+    return html.replace(/<(?!br\s*\/?)[^>]+>/g, '').split("<br />").join("\n");
+ }

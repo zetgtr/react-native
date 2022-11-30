@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
 import { getPoster, getPosters, getProfile } from "../../API/api";
 import { ROUTER } from "../../Router/constants";
+import { loadingPosterAction } from "../../Store/poster/actions";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
 import { imgPoster } from "../utils";
@@ -64,6 +65,8 @@ const Invitation = ({ setPoster, setLogout }) => {
             key={poster.classImg}
             onPress={() => {
               setLogout(false);
+              dispatch(loadingPosterAction(true));
+              navigate(ROUTER.POSTER);
               getPoster(poster.event, dispatch, navigate);
             }}
             style={style.posterContainer}

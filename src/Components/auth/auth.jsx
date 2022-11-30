@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigate } from "react-router-native";
 import { useEffect, useState } from "react";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   Image,
@@ -41,13 +40,7 @@ export const Auth = ({
       setError(false)
     },3000)
   };
-  // const onLayoutGetHigth = (height) => {
-  //   style.container = {
-  //     ...style.container,
-  //     height,
-  //   };
-  //   setRender(!render);
-  // };
+
   const onRestorePassword = () => {
     const url = "https://mo-strelna.ru/auth/recovery/";
     Linking.openURL(url).catch((err) =>
@@ -74,10 +67,6 @@ export const Auth = ({
       {auth ? (
         <></>
       ) : (
-        // <ScrollView
-        // onLayout={(e) => onLayoutGetHigth(e.nativeEvent.layout.height)}
-        //   style={style.containerScroll}
-        // >
         <View style={style.container}>
           <View style={style.box}>
             {loading ? (
@@ -152,7 +141,6 @@ export const Auth = ({
             )}
           </View>
         </View>
-        // </ScrollView>
       )}
     </>
   );

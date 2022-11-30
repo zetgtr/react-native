@@ -25,6 +25,7 @@ import { profileSelector } from "../../Store/profile/selector";
 import { ROUTER } from "../../Router/constants";
 import { useNavigate } from "react-router-native";
 import { posterSelector } from "../../Store/poster/selector";
+import { ActivityIndicator } from "@react-native-material/core";
 
 const PosterInfo = ({ setTitle, posterPage, history }) => {
   const [render, setRender] = useState(false);
@@ -32,7 +33,7 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
   const [sizeIcon] = useState(11);
   const { auth } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
-  const { poster } = useSelector(posterSelector);
+  const { poster, loadingPoster } = useSelector(posterSelector);
   const navigate = useNavigate();
 
   const onLayoutImg = (widthImg) => {
@@ -50,11 +51,16 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   useEffect(() => {
-    //   // setLogout(setLogout)
     setInvitationButton(userValidation(familys[0], auth, poster));
     history ? setTitle("Мероприятие") : setTitle("Мое приглашение");
-    // setBack(true);
   }, []);
+
+  if(loadingPoster)
+    return (
+      <View style={{ flex: 100000, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" color="#4f68c8" />
+      </View>
+    );
 
   return (
     <>

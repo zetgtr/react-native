@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-native";
-import { exitAuth, getProfile } from "../../API/api";
+import {  getProfile } from "../../API/api";
 import { Famaly } from "../family/family";
 import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
 import { Rules } from "../rules/rules";
 
-import React, { useRef } from "react";
+import React from "react";
 
 export const ProFile = ({
   setBack,
