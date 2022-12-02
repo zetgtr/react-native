@@ -14,6 +14,7 @@ import { Auth } from "../Components/auth/auth";
 import { ProFile } from "../Components/profile/profile";
 import { InvitationPage } from "../Components/invitationPage/invitationPage";
 import { getPushFirebase } from "../Components/utils";
+import { Rules } from "../Components/rules/rules";
 
 const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
@@ -62,6 +63,7 @@ const Router = () => {
               ></Home>
             }
           />
+          <Route path={ROUTER.RULES} element={<Rules />} />
           <Route
             exact
             path={ROUTER.POSTER}

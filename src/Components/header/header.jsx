@@ -1,6 +1,6 @@
 import { BackHandler, Image, Text, TouchableOpacity, View } from "react-native";
 import style from "./header.scss";
-import { faArrowLeft } from "@fortawesome/fontawesome-free-solid";
+import { faArrowLeft, faQuestion } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigate } from "react-router-native";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
@@ -8,23 +8,23 @@ import { exitAuth, getProfile } from "../../API/api";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../Store/auth/selector";
 import { useEffect } from "react";
+import { ROUTER } from "../../Router/constants";
 
-const Header = ({ title, back , logout }) => {
+const Header = ({ title, logout }) => {
   const navigate = useNavigate();
   const dicpatch = useDispatch();
   const { auth } = useSelector(authSelector);
-  const onChengeBack = () => {
-    navigate(-1);
+  const onChengeRules = () => {
+    navigate(ROUTER.RULES);
   };
   const onChengeExit = () => {
     exitAuth(dicpatch, navigate);
   };
-   useEffect(() => {
-    const backAction = () => {
-      navigate(-1)
-      return true;
-    };
-
+  const backAction = () => {
+    navigate(-1);
+    return true;
+  };
+  useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
@@ -41,31 +41,30 @@ const Header = ({ title, back , logout }) => {
           source={require("../../../img/logotype.png")}
         />
       </View>
-      
-      {back ? (
-        <>
-          <View style={style.boxText}>
-            <Text style={style.title}>{title}</Text>
+      {!logout && (
+        <TouchableOpacity onPress={() => onChengeRules()} style={style.link}>
+          <View style={style.boxBack}>
+            <FontAwesomeIcon style={style.icon} icon={faQuestion} />
           </View>
-          <TouchableOpacity onPress={() => onChengeBack()} style={style.link}>
-            <View style={style.boxBack}>
-              <FontAwesomeIcon style={style.icon} icon={faArrowLeft} />
-            </View>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <View style={style.boxText}>
-          <Text style={style.text}>{title}</Text>
-        </View>
+        </TouchableOpacity>
       )}
+      <View style={style.boxText}>
+        <Text style={style.text}>{title}</Text>
+      </View>
+
       {auth && logout && (
-        <TouchableOpacity  style={[{color: '', position: 'absolute', top: 15, right: 15 }]}
-        onPress={() => {
-          onChengeExit()
-        }}
+        <TouchableOpacity
+          style={[{ color: "", position: "absolute", top: 15, right: 22 }]}
+          onPress={() => {
+            onChengeExit();
+          }}
         >
           <View>
-            <FontAwesomeIcon size={20} icon={faRightFromBracket} style={{color: '#3c52a6'}}/>
+            <FontAwesomeIcon
+              size={20}
+              icon={faRightFromBracket}
+              style={{ color: "#3c52a6" }}
+            />
           </View>
         </TouchableOpacity>
       )}

@@ -4,5 +4,6 @@ export const ROUTER = {
   AUTH: "/auth",
   POSTER: "/poster",
   INVITATION: "/invitation",
-  PUSH: "/push"
+  PUSH: "/push",
+  RULES: "/rules",
 };

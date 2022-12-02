@@ -10,7 +10,6 @@ import { Rules } from "../rules/rules";
 import React from "react";
 
 export const ProFile = ({
-  setPoster,
   setTitle,
   setPosterPage,
   setLogout,
@@ -52,7 +51,6 @@ export const ProFile = ({
     setPosterPage(false);
     getProfile(dicpatch);
     setTitle("Профиль");
-
     !logout && setLogout(true);
   }, [dicpatch]);
 
@@ -71,28 +69,28 @@ export const ProFile = ({
         <TouchableOpacity
           style={[style.buttonHeader]}
           onPress={() => {
+            onChengeRules();
+          }}
+        >
+          <Text>Прошедшие</Text>
+          <View style={rules && style.band} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[style.buttonHeader]}
+          onPress={() => {
             onChengeFamily();
           }}
         >
           <Text>Члены семьи</Text>
           <View style={family && style.band} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.buttonHeader]}
-          onPress={() => {
-            onChengeRules();
-          }}
-        >
-          <Text>Правила</Text>
-          <View style={rules && style.band} />
-        </TouchableOpacity>
       </View>
       <View
         style={{ marginBottom: 5, overflowX: "hidden", marginHorizontal: 10 }}
       ></View>
-      {invitation && <Invitation setPoster={setPoster} setLogout={setLogout} />}
+      {invitation && <Invitation setLogout={setLogout} invite={true} />}
+      {rules && <Invitation setLogout={setLogout} invite={false} />}
       {family && <Famaly />}
-      {rules && <Rules />}
     </View>
   );
 };

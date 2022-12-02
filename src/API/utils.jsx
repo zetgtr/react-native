@@ -1,4 +1,4 @@
-export function date(dateStamp) {
+export function date(dateStamp, endDate = false) {
   let month = [
     "января",
     "февраля",
@@ -14,7 +14,13 @@ export function date(dateStamp) {
     "декабря",
   ];
   let dateSecond = convertDate(dateStamp);
-  if (new Date().getDate() == dateSecond.getDate()) {
+  if (endDate) {
+    if (new Date() > dateSecond) {
+      return true;
+    } else {
+      return false;
+    }
+  } else if (new Date().getDate() == dateSecond.getDate()) {
     return (
       "Сегодня, " +
       ("0" + dateSecond.getHours()).slice(-2) +

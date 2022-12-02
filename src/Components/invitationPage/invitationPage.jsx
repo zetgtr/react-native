@@ -1,13 +1,7 @@
 import { faTicketAlt } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useState } from "react";
-import {
-  Text,
-  View,
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, TouchableHighlight } from "react-native";
 import { useSelector } from "react-redux";
 import { setInvie } from "../../API/api";
 import { posterSelector } from "../../Store/poster/selector";
