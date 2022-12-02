@@ -57,7 +57,9 @@ export const dateTime = (dateStamp) => {
   );
 };
 
-export const removeTags = (html) =>
- {
-    return html.replace(/<(?!br\s*\/?)[^>]+>/g, '').split("<br />").join("\n");
- }
+export const removeTags = (html) => {
+  return html
+    ?.replace(/<(?!br\s*\/?)[^>]+>/g, "")
+    .split("<br />")
+    .join("\n");
+};

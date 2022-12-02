@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 const Home = ({
-  setBack,
   setPagePoster,
   setTitle,
   setLogout,
@@ -11,13 +10,12 @@ const Home = ({
   setActiveProfile,
 }) => {
   useEffect(() => {
-    setActiveAfish(true)
-    setActiveProfile(false)
-    setActiveNotifications(false)
+    setActiveAfish(true);
+    setActiveProfile(false);
+    setActiveNotifications(false);
     setLogout(false);
     setTitle("Афиша мероприятий");
     setPagePoster(true);
-    setBack(false);
     setHistory(true);
   }, []);
   return <></>;

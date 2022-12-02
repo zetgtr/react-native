@@ -35,7 +35,7 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
   const { familys } = useSelector(profileSelector);
   const { poster, loadingPoster } = useSelector(posterSelector);
   const navigate = useNavigate();
-
+  console.log(posterPage);
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
       style.img = {
@@ -55,9 +55,11 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
     history ? setTitle("Мероприятие") : setTitle("Мое приглашение");
   }, []);
 
-  if(loadingPoster)
+  if (loadingPoster)
     return (
-      <View style={{ flex: 100000, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{ flex: 100000, alignItems: "center", justifyContent: "center" }}
+      >
         <ActivityIndicator size="large" color="#4f68c8" />
       </View>
     );

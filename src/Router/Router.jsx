@@ -19,15 +19,13 @@ const Router = () => {
   const [title, setTitle] = useState("Афиша мероприятий");
   const [poster, setPoster] = useState();
   const [history, setHistory] = useState(false);
-  const [back, setBack] = useState(false);
   const [pagePoster, setPagePoster] = useState(false);
-  const [posterPage, setPosterPage] = useState(false);
+  // const [posterPage, setPosterPage] = useState(false);
   const [logout, setLogout] = useState(false);
   const [count, setCount] = useState(0);
   const [activeAfish, setActiveAfish] = useState(false);
   const [activeNotifications, setActiveNotifications] = useState(false);
   const [activeProfile, setActiveProfile] = useState(false);
-
   const dispatch = useDispatch();
   useEffect(() => {
     getPushFirebase(dispatch);
@@ -39,14 +37,14 @@ const Router = () => {
   return (
     <NativeRouter>
       <View style={style.container}>
-        <Header back={back} title={title} logout={logout} />
+        <Header title={title} logout={logout} />
         <Poster
-          setPosterPage={setPosterPage}
-          setTitle={setTitle}
-          setBack={setBack}
-          back={back}
-          pagePoster={pagePoster}
-          setPoster={setPoster}
+        // setPosterPage={setPosterPage}
+        // setTitle={setTitle}
+        // setBack={setBack}
+        // back={back}
+        // pagePoster={pagePoster}
+        // setPoster={setPoster}
         />
         <Routes>
           <Route
@@ -58,8 +56,6 @@ const Router = () => {
                 setActiveNotifications={setActiveNotifications}
                 setActiveProfile={setActiveProfile}
                 setLogout={setLogout}
-                setBack={setBack}
-                setPosterPage={setPosterPage}
                 setTitle={setTitle}
                 setPagePoster={setPagePoster}
                 setHistory={setHistory}
@@ -71,14 +67,8 @@ const Router = () => {
             path={ROUTER.POSTER}
             element={
               <PosterInfo
-                logout={logout}
-                setLogout={setLogout}
-                posterPage={posterPage}
+                posterPage={pagePoster}
                 setTitle={setTitle}
-                setBack={setBack}
-                setPagePoster={setPagePoster}
-                back={back}
-                poster={poster}
                 history={history}
               />
             }
@@ -90,8 +80,7 @@ const Router = () => {
                 setActiveAfish={setActiveAfish}
                 setActiveNotifications={setActiveNotifications}
                 setActiveProfile={setActiveProfile}
-                setPosterPage={setPosterPage}
-                setBack={setBack}
+                setPosterPage={setPagePoster}
                 setPoster={setPoster}
                 setTitle={setTitle}
                 setLogout={setLogout}
@@ -126,7 +115,6 @@ const Router = () => {
                 setActiveNotifications={setActiveNotifications}
                 setActiveProfile={setActiveProfile}
                 setTitle={setTitle}
-                setBack={setBack}
               />
             }
           />

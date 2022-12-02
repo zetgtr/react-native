@@ -24,7 +24,7 @@ import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
 import { imgPoster } from "../utils";
 
-const Invitation = ({ setPoster, setLogout }) => {
+const Invitation = ({ setLogout }) => {
   const { invites } = useSelector(profileSelector);
   const [styleImg, setStyleImg] = useState([]);
   const [loading, setLoading] = useState(true);

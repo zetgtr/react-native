@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import {  getProfile } from "../../API/api";
+import { getProfile } from "../../API/api";
 import { Famaly } from "../family/family";
 import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
@@ -10,7 +10,6 @@ import { Rules } from "../rules/rules";
 import React from "react";
 
 export const ProFile = ({
-  setBack,
   setPoster,
   setTitle,
   setPosterPage,
@@ -51,13 +50,11 @@ export const ProFile = ({
     setHistory(false);
     setInvitation(true);
     setPosterPage(false);
-    setBack(false);
     getProfile(dicpatch);
     setTitle("Профиль");
 
     !logout && setLogout(true);
   }, [dicpatch]);
-
 
   return (
     <View disableScrollViewPanResponder={true} style={style.container}>
@@ -92,8 +89,7 @@ export const ProFile = ({
       </View>
       <View
         style={{ marginBottom: 5, overflowX: "hidden", marginHorizontal: 10 }}
-      >
-      </View>
+      ></View>
       {invitation && <Invitation setPoster={setPoster} setLogout={setLogout} />}
       {family && <Famaly />}
       {rules && <Rules />}
