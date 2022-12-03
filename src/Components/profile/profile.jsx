@@ -5,7 +5,6 @@ import { getProfile } from "../../API/api";
 import { Famaly } from "../family/family";
 import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
-import { Rules } from "../rules/rules";
 
 import React from "react";
 

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
+  Alert,
   Image,
   ScrollView,
   Text,
@@ -26,6 +27,7 @@ import { ROUTER } from "../../Router/constants";
 import { useNavigate } from "react-router-native";
 import { posterSelector } from "../../Store/poster/selector";
 import { ActivityIndicator } from "@react-native-material/core";
+import { cancellation } from "../../API/api";
 
 const PosterInfo = ({ setTitle, posterPage, history }) => {
   const [render, setRender] = useState(false);
@@ -35,7 +37,6 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
   const { familys } = useSelector(profileSelector);
   const { poster, loadingPoster } = useSelector(posterSelector);
   const navigate = useNavigate();
-  console.log(posterPage);
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
       style.img = {
@@ -45,6 +46,17 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
       };
       setRender(!render);
     });
+  };
+
+  const onChengeCancellation = () => {
+    Alert.alert("Отменить приглашение", "Вы уверены?", [
+      {
+        text: "Нет",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "Да", onPress: () => cancellation(poster.id, Alert, navigate) },
+    ]);
   };
 
   const onChengeInvitation = () => {
@@ -173,7 +185,7 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
           </View>
         </View>
       </ScrollView>
-      {posterPage && (
+      {posterPage ? (
         <TouchableHighlight
           onPress={() => {
             poster.availableTickets > 0 && onChengeInvitation();
@@ -199,6 +211,19 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
             )}
           </>
         </TouchableHighlight>
+      ) : (
+        !poster.end && (
+          <TouchableHighlight
+            onPress={() => {
+              onChengeCancellation();
+            }}
+            style={[style.cancellation]}
+          >
+            <>
+              <Text style={style.textInvitation}> ОТМЕНИТЬ ПРИГЛАШЕНИЕ </Text>
+            </>
+          </TouchableHighlight>
+        )
       )}
     </>
   );

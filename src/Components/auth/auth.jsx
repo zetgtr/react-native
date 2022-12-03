@@ -20,7 +20,6 @@ import style from "./auth.scss";
 import { ActivityIndicator } from "@react-native-material/core";
 
 export const Auth = ({
-  setBack,
   setTitle,
   setActiveAfish,
   setActiveNotifications,
@@ -36,9 +35,9 @@ export const Auth = ({
   const { auth } = useSelector(authSelector);
   const onPressAuth = () => {
     signIn(login, password, setError, dispatch, navigate, setLoading);
-    setTimeout(()=>{
-      setError(false)
-    },3000)
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
   };
 
   const onRestorePassword = () => {
@@ -58,7 +57,6 @@ export const Auth = ({
     setActiveProfile(true);
     setActiveNotifications(false);
     setTitle("Авторизация");
-    setBack(false);
     getAuth(dispatch, navigate);
     setRender(!render);
   }, []);
@@ -101,7 +99,7 @@ export const Auth = ({
                   onChangeText={onChangeLogin}
                   value={login}
                   placeholder="Логин или Email"
-                  placeholderTextColor="#808080" 
+                  placeholderTextColor="#808080"
                 />
                 <TextInput
                   autoComplete={"password"}
@@ -109,7 +107,7 @@ export const Auth = ({
                   onChangeText={onChangePassword}
                   value={password}
                   placeholder="Пароль"
-                  placeholderTextColor="#808080" 
+                  placeholderTextColor="#808080"
                   secureTextEntry={true}
                 />
                 <TouchableHighlight
@@ -132,7 +130,10 @@ export const Auth = ({
                 >
                   <Text>Регистрация</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={style.restore} onPress={() => onRestorePassword()}>
+                <TouchableOpacity
+                  style={style.restore}
+                  onPress={() => onRestorePassword()}
+                >
                   <Text style={{ color: "#3c52a6", marginTop: 0 }}>
                     Восстановление пароля
                   </Text>

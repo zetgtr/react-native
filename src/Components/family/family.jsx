@@ -17,9 +17,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosters, getProfile, setInvie } from "../../API/api";
+import { getPosters, getProfile } from "../../API/api";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "./family.scss";
 
@@ -44,8 +43,7 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
   const onChengeFamily = (id) => {
     members[id] = members[id] ? false : true;
     Object.keys(members).map((key) => {
-      members[key] &&
-        setIds((ids ? ids : "")+ (ids ? ", " + key : "" + key))
+      members[key] && setIds((ids ? ids : "") + (ids ? ", " + key : "" + key));
     });
     setMembers(members);
     setRender(!render);
@@ -241,7 +239,7 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
                   variant="text"
                   title="Закрыть"
                   compact
-                  style = {{size: 5}}
+                  style={{ size: 5 }}
                 />
               </HStack>
             }

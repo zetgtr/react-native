@@ -62,10 +62,9 @@ const Invitation = ({ setLogout, invite }) => {
     >
       <View style={style.container}>
         {invites.map((poster) => (
-          <>
+          <View style={{ width: "100%" }} key={poster.id}>
             {!invite == poster.end && (
               <TouchableOpacity
-                key={poster.id}
                 onPress={() => {
                   setLogout(false);
                   dispatch(loadingPosterAction(true));
@@ -166,7 +165,7 @@ const Invitation = ({ setLogout, invite }) => {
                 </View>
               </TouchableOpacity>
             )}
-          </>
+          </View>
         ))}
       </View>
     </ScrollView>

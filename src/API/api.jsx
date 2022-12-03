@@ -126,11 +126,29 @@ export const getProfile = (dispatch) => {
   });
 };
 
-export const setInvie = (ids, poster, setError, setMembers) => {
+export const cancellation = (id, Alert, navigate) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=cancellation&schedule=${id}`,
+    (res) => {
+      Alert.alert("", res.data.message, [
+        { text: "Ok", onPress: () => navigate(ROUTER.PROFILE) },
+      ]);
+    }
+  );
+};
+
+export const setInvie = (ids, poster, setError, setMembers, setAlter) => {
   api(
     `https://mo-strelna.ru/mobile/mobile.php?type=invite&id=${ids}&event=${poster.id}&stamp=${poster.stamp}`,
     (res) => {
-      setError(res.data);
+      if (res.data.status) {
+        setError(false);
+        setAlter(res.data.message);
+      } else {
+        setAlter(false);
+        setError(res.data);
+      }
+
       setMembers({});
     }
   );
