@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Banner, Button, HStack, Text } from "@react-native-material/core";
+import { useEffect } from "react";
 import { useState } from "react";
 import {
   RefreshControl,
@@ -18,7 +19,9 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosters, getProfile } from "../../API/api";
+import { useNavigate } from "react-router-native";
+import { getPosters, getProfile, signInRefresh } from "../../API/api";
+import { authSelector } from "../../Store/auth/selector";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "./family.scss";
 
@@ -29,13 +32,15 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
   const [textBanner, setTextBanner] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [render, setRender] = useState(false);
-
-  const dicpatch = useDispatch();
+  const { login, password } = useSelector(authSelector)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChengeRefresh = () => {
     setRefresh(true);
-    getPosters(dicpatch);
-    getProfile(dicpatch);
+    signInRefresh(login,password,dispatch,navigate)
+    getPosters(dispatch);
+    getProfile(dispatch);
     setTimeout(() => {
       setRefresh(false);
     }, 1000);
@@ -56,6 +61,10 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
   const onChengeBanerExit = () => {
     setBanner(false);
   };
+
+  useEffect(()=>{
+    signInRefresh(login,password,dispatch,navigate)
+  },[])
   return (
     <>
       <>
@@ -111,7 +120,7 @@ export const Famaly = ({ invitation, members, setMembers, setIds, ids }) => {
                     </Text>
                   </View>
                   <View style={style.buttonContainer}>
-                    {!family.citizen && (
+                    {family.citizen && (
                       <TouchableOpacity
                         onPress={() =>
                           onChengeBaner(

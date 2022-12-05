@@ -44,7 +44,7 @@ export const userValidation = (user, auth, poster) => {
 export const getPushFirebase = async (dispatch) => {
   await database()
     .ref("token")
-    .child(auth().currentUser.uid)
+    .child(auth()?.currentUser?.uid)
     .child("message")
     .on("value", (snapshot) => {
       dispatch(

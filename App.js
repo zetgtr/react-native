@@ -11,7 +11,7 @@ import auth from "@react-native-firebase/auth";
 export default function App() {
   const getPushData = (message) => {
     console.log(message);
-    const id = auth().currentUser.uid;
+    const id = auth()?.currentUser?.uid;
     const app = firebase.app();
     database(app).ref("token").child(id).child("message").push(message);
     PushNotification.localNotification({

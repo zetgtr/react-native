@@ -30,36 +30,38 @@ export const InvitationPage = () => {
             Пожалуйста, отметьте, на кого оформить приглашение.
           </Text>
         </View>
-        {error ||
-          (alter && (
-            <Text
-              style={
-                error
-                  ? {
-                      backgroundColor: "#de0000",
-                      padding: 10,
-                      borderRadius: 5,
-                      overflow: "hidden",
-                      color: "#fff",
-                      width: "90%",
-                      textAlign: "center",
-                      fontSize: 10,
-                    }
-                  : {
-                      backgroundColor: "#186f40",
-                      padding: 10,
-                      borderRadius: 5,
-                      overflow: "hidden",
-                      color: "#fff",
-                      width: "90%",
-                      textAlign: "center",
-                      fontSize: 10,
-                    }
-              }
-            >
-              {error ? error : alter}
-            </Text>
-          ))}
+        {error && (
+          <Text
+            style={{
+              backgroundColor: "#de0000",
+              padding: 10,
+              borderRadius: 5,
+              overflow: "hidden",
+              color: "#fff",
+              width: "90%",
+              textAlign: "center",
+              fontSize: 10,
+            }}
+          >
+            {error}
+          </Text>
+        )}
+        {alter && (
+          <Text
+            style={{
+              backgroundColor: "#186f40",
+              padding: 10,
+              borderRadius: 5,
+              overflow: "hidden",
+              color: "#fff",
+              width: "90%",
+              textAlign: "center",
+              fontSize: 10,
+            }}
+          >
+            {alter}
+          </Text>
+        )}
         <Famaly
           invitation={true}
           members={members}

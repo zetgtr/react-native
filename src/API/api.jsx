@@ -83,11 +83,29 @@ export const signIn = (
     `https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,
     (res) => {
       if (res.data.auth) {
-        dispatch(setAuthAction(res.data.auth));
+        dispatch(setAuthAction({auth: res.data.auth, login, password}));
         navigate(ROUTER.PROFILE);
       }
       setLoading(false);
       setError(res.data.error);
+    }
+  );
+};
+
+export const signInRefresh = (
+  login,
+  password,
+  dispatch,
+  navigate,
+) => {
+  api(
+    `https://mo-strelna.ru/mobile/mobile.php?type=sign_in&login=${login}&password=${password}`,
+    (res) => {
+      if (res.data.auth) {
+        dispatch(setAuthAction({auth: res.data.auth, login, password}));
+      }else{
+        navigate(ROUTER.AUTH);
+      }
     }
   );
 };
@@ -146,7 +164,7 @@ export const setInvie = (ids, poster, setError, setMembers, setAlter) => {
         setAlter(res.data.message);
       } else {
         setAlter(false);
-        setError(res.data);
+        setError(res.data.message);
       }
 
       setMembers({});

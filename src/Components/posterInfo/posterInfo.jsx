@@ -27,15 +27,17 @@ import { ROUTER } from "../../Router/constants";
 import { useNavigate } from "react-router-native";
 import { posterSelector } from "../../Store/poster/selector";
 import { ActivityIndicator } from "@react-native-material/core";
-import { cancellation } from "../../API/api";
+import { cancellation, signInRefresh } from "../../API/api";
+import { useDispatch } from "react-redux";
 
 const PosterInfo = ({ setTitle, posterPage, history }) => {
   const [render, setRender] = useState(false);
   const [invitationButton, setInvitationButton] = useState(false);
   const [sizeIcon] = useState(11);
-  const { auth } = useSelector(authSelector);
+  const { auth, login, password } = useSelector(authSelector);
   const { familys } = useSelector(profileSelector);
   const { poster, loadingPoster } = useSelector(posterSelector);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLayoutImg = (widthImg) => {
     Image.getSize(poster.photo, (width, height) => {
@@ -60,6 +62,7 @@ const PosterInfo = ({ setTitle, posterPage, history }) => {
   };
 
   const onChengeInvitation = () => {
+    signInRefresh(login, password, dispatch, navigate);
     invitationButton ? navigate(ROUTER.INVITATION) : navigate(ROUTER.AUTH);
   };
   useEffect(() => {

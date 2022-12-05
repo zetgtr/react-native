@@ -1,20 +1,31 @@
 import { BackHandler, Image, Text, TouchableOpacity, View } from "react-native";
 import style from "./header.scss";
-import { faArrowLeft, faQuestion } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigate } from "react-router-native";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { exitAuth, getProfile } from "../../API/api";
+import { exitAuth } from "../../API/api";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector } from "../../Store/auth/selector";
 import { useEffect } from "react";
 import { ROUTER } from "../../Router/constants";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 
-const Header = ({ title, logout }) => {
+const Header = ({
+  title,
+  logout,
+  setTitle,
+  setActiveAfish,
+  setActiveNotifications,
+  setActiveProfile,
+}) => {
   const navigate = useNavigate();
   const dicpatch = useDispatch();
   const { auth } = useSelector(authSelector);
   const onChengeRules = () => {
+    setTitle("Правила");
+    setActiveAfish(false);
+    setActiveNotifications(false)
+    setActiveProfile(false)
     navigate(ROUTER.RULES);
   };
   const onChengeExit = () => {
@@ -44,7 +55,7 @@ const Header = ({ title, logout }) => {
       {!logout && (
         <TouchableOpacity onPress={() => onChengeRules()} style={style.link}>
           <View style={style.boxBack}>
-            <FontAwesomeIcon style={style.icon} icon={faQuestion} />
+            <FontAwesomeIcon style={style.icon} icon={faCircleQuestion} />
           </View>
         </TouchableOpacity>
       )}

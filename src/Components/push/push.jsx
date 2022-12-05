@@ -87,7 +87,7 @@ const Push = ({
         </ScrollView>
       ) : (
         <View style={style.nonePush}>
-          <Text>Уведомления отсутствуют</Text>
+          <Text style={{color: "#808080"}}>Уведомления отсутствуют!</Text>
         </View>
       )}
     </>

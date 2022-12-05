@@ -38,7 +38,14 @@ const Router = () => {
   return (
     <NativeRouter>
       <View style={style.container}>
-        <Header title={title} logout={logout} />
+        <Header
+          setActiveAfish={setActiveAfish}
+          setActiveNotifications={setActiveNotifications}
+          setActiveProfile={setActiveProfile}
+          title={title}
+          setTitle={setTitle}
+          logout={logout}
+        />
         <Poster
         // setPosterPage={setPosterPage}
         // setTitle={setTitle}

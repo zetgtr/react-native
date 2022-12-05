@@ -17,8 +17,9 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-native";
-import { getPoster, getPosters, getProfile } from "../../API/api";
+import { getPoster, getPosters, getProfile, signInRefresh } from "../../API/api";
 import { ROUTER } from "../../Router/constants";
+import { authSelector } from "../../Store/auth/selector";
 import { loadingPosterAction } from "../../Store/poster/actions";
 import { profileSelector } from "../../Store/profile/selector";
 import style from "../poster/poster.scss";
@@ -27,15 +28,17 @@ import { imgPoster } from "../utils";
 const Invitation = ({ setLogout, invite }) => {
   const { invites } = useSelector(profileSelector);
   const [styleImg, setStyleImg] = useState([]);
+  const [ emty, setEmpty ] = useState(true);
   const [loading, setLoading] = useState(true);
   const [widthImg, setWidthImg] = useState(160);
   const [sizeIcon] = useState(11);
   const [refresh, setRefresh] = useState(false);
+  const { login, password } = useSelector(authSelector)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const onChengeRefresh = () => {
     setRefresh(true);
+    signInRefresh(login,password,dispatch,navigate)
     getPosters(dispatch);
     getProfile(dispatch);
     setTimeout(() => {
@@ -49,9 +52,15 @@ const Invitation = ({ setLogout, invite }) => {
 
   useEffect(() => {
     imgPoster(invites, widthImg, setStyleImg, styleImg, setLoading);
+    setEmpty(true)
+    invites.map((poster) => {
+      !invite == poster.end && setEmpty(false)
+    })
+    signInRefresh(login,password,dispatch,navigate)
   }, [invites, widthImg]);
   if (loading) return <></>;
   return (
+    <>
     <ScrollView
       refreshControl={
         <RefreshControl
@@ -62,7 +71,7 @@ const Invitation = ({ setLogout, invite }) => {
     >
       <View style={style.container}>
         {invites.map((poster) => (
-          <View style={{ width: "100%" }} key={poster.id}>
+          <View style={{ width: "100%"}} key={poster.id}>
             {!invite == poster.end && (
               <TouchableOpacity
                 onPress={() => {
@@ -169,6 +178,8 @@ const Invitation = ({ setLogout, invite }) => {
         ))}
       </View>
     </ScrollView>
+    {emty && <View style={{position: "absolute", height: "100%", width: "100%", alignItems: "center", justifyContent: "center"}}><Text style={{color: "#808080"}}>Приглашения отсутствуют!</Text></View>}
+    </>
   );
 };
 

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useDispatch } from "react-redux";
-import { getProfile } from "../../API/api";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile, signInRefresh } from "../../API/api";
 import { Famaly } from "../family/family";
 import Invitation from "../invitation/invitation";
 import style from "./profile.scss";
 
 import React from "react";
+import { useNavigate } from "react-router-native";
+import { authSelector } from "../../Store/auth/selector";
 
 export const ProFile = ({
   setTitle,
@@ -22,6 +24,9 @@ export const ProFile = ({
   const [invitation, setInvitation] = useState(false);
   const [family, setFamily] = useState(false);
   const [rules, setRules] = useState(false);
+  const { login, password } = useSelector(authSelector)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onChangeInvitation = () => {
     setInvitation(true);
@@ -49,6 +54,7 @@ export const ProFile = ({
     setInvitation(true);
     setPosterPage(false);
     getProfile(dicpatch);
+    signInRefresh(login,password,dispatch,navigate)
     setTitle("Профиль");
     !logout && setLogout(true);
   }, [dicpatch]);

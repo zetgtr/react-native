@@ -20,14 +20,14 @@ export function date(dateStamp, endDate = false) {
     } else {
       return false;
     }
-  } else if (new Date().getDate() == dateSecond.getDate()) {
+  } else if (new Date().getDate() == dateSecond.getDate() && new Date().getMonth() == dateSecond.getMonth() && new Date().getFullYear() == dateSecond.getFullYear()) {
     return (
       "Сегодня, " +
       ("0" + dateSecond.getHours()).slice(-2) +
       ":" +
       ("0" + dateSecond.getMinutes()).slice(-2)
     );
-  } else if (new Date().getDate() + 1 == dateSecond.getDate()) {
+  } else if (new Date().getDate() + 1 == dateSecond.getDate() && new Date().getMonth() == dateSecond.getMonth() && new Date().getFullYear() == dateSecond.getFullYear()) {
     return (
       "Завтра, " +
       ("0" + dateSecond.getHours()).slice(-2) +
